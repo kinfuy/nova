@@ -5,7 +5,7 @@ import { enterPath, outputPath, rootPath } from "./utils/path";
 
 const buildConfig: DefineLibConfig = {
   baseOptions: {
-    input: resolve(enterPath, "index.ts"),
+    input: resolve(enterPath, "client/index.ts"),
     outPutPath: outputPath,
     enterPath,
     pkgPath: resolve(enterPath, "package.json"),

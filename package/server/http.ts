@@ -1,10 +1,10 @@
-import type * as net from "node:net";
-import type * as http from "node:http";
-import { exec } from "child_process";
-import type { Logger } from "../logger";
+import type * as net from 'node:net';
+import type * as http from 'node:http';
+import { exec } from 'child_process';
+import type { Logger } from './logger';
 
 export const resolveHttpServer = async (app: any) => {
-  const { createServer } = await import("node:http");
+  const { createServer } = await import('node:http');
   return createServer(app);
 };
 
@@ -16,14 +16,14 @@ export const createServerCloseFn = (server: http.Server | null) => {
   let hasListened = false;
   const openSockets = new Set<net.Socket>();
 
-  server.on("connection", (socket) => {
+  server.on('connection', (socket) => {
     openSockets.add(socket);
-    socket.on("close", () => {
+    socket.on('close', () => {
       openSockets.delete(socket);
     });
   });
 
-  server.once("listening", () => {
+  server.once('listening', () => {
     hasListened = true;
   });
 
@@ -58,30 +58,30 @@ export async function httpServerStart(
 
   return new Promise((resolve, reject) => {
     const onError = (e: Error & { code?: string }) => {
-      if (e.code === "EADDRINUSE") {
+      if (e.code === 'EADDRINUSE') {
         if (strictPort) {
-          httpServer.removeListener("error", onError);
+          httpServer.removeListener('error', onError);
           reject(new Error(`Port ${port} is already in use`));
         } else {
           logger?.info(`Port ${port} is in use, trying another one...`);
           httpServer.listen(++port, host);
         }
       } else {
-        httpServer.removeListener("error", onError);
+        httpServer.removeListener('error', onError);
         reject(e);
       }
     };
 
-    httpServer.on("error", onError);
+    httpServer.on('error', onError);
 
     httpServer.listen(port, host, () => {
-      httpServer.removeListener("error", onError);
+      httpServer.removeListener('error', onError);
       resolve(port);
     });
   });
 }
 
-export const openBrowser = (url: string, app = "chrome") => {
+export const openBrowser = (url: string, app = 'chrome') => {
   try {
     exec(`start ${app} ${url}`);
   } catch (error) {
