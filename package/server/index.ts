@@ -4,6 +4,7 @@ import { extname, join } from 'node:path';
 import { green, white } from 'kolorist';
 import { createLogger, printServerUrls } from './logger';
 import { createServerCloseFn, httpServerStart, openBrowser, resolveHttpServer } from './http';
+import { checkGitRepo } from './check';
 
 const alias: Record<string, string | undefined> = {
   js: 'application/javascript',
@@ -37,6 +38,13 @@ export const createServer = async () => {
   };
 
   const logger = createLogger();
+
+  if (!checkGitRepo()) {
+    logger.clearScreen();
+    logger.info(`\n${green(`CGIT SERVER V1.0.0`)}`);
+    logger.error('\n    can‘t find git repo');
+    return;
+  }
 
   const httpServer = await resolveHttpServer(httpServerOptions);
 
