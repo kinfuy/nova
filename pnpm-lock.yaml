@@ -12,6 +12,7 @@ specifiers:
   '@types/minimist': ^1.2.2
   '@types/node': ^17.0.21
   '@types/prompts': ^2.0.14
+  '@types/ws': ^8.5.4
   '@vitejs/plugin-vue': ^4.0.0
   cac: ^6.7.14
   changeloger: 0.1.0
@@ -32,6 +33,7 @@ specifiers:
   vite: ^4.1.0
   vue: ^3.2.45
   vue-tsc: ^1.0.24
+  ws: ^8.12.0
 
 dependencies:
   cac: 6.7.14
@@ -39,6 +41,7 @@ dependencies:
   kolorist: 1.6.0
   prompts: 2.4.2
   vue: 3.2.47
+  ws: 8.12.0
 
 devDependencies:
   '@alqmc/build-ts': 0.0.8_typescript@4.9.5
@@ -52,6 +55,7 @@ devDependencies:
   '@types/minimist': 1.2.2
   '@types/node': 17.0.45
   '@types/prompts': 2.4.2
+  '@types/ws': 8.5.4
   '@vitejs/plugin-vue': 4.0.0_vite@4.1.1+vue@3.2.47
   changeloger: 0.1.0
   eslint: 8.33.0
@@ -851,6 +855,12 @@ packages:
     resolution: {integrity: sha512-4UqPv+2567NhMQuMLdKAyK4yzrfCqwaTt6bLhHEs8PFcxbHILsrxaY63n4wgE/BRLDWDQeI+WcTmkXKExh9hQg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npm.taobao.org/@types/vinyl/-/vinyl-2.0.7.tgz}
     dependencies:
       '@types/expect': 1.20.4
+      '@types/node': 17.0.45
+    dev: true
+
+  /@types/ws/8.5.4:
+    resolution: {integrity: sha512-zdQDHKUgcX/zBc4GrwsE/7dVdAD8JR4EuiAXiiUhhfyIJXXb2+PrGshFyeXWQPMmmZ2XxgaqclgpIC7eTXc1mg==}
+    dependencies:
       '@types/node': 17.0.45
     dev: true
 
@@ -6475,6 +6485,19 @@ packages:
   /wrappy/1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npm.taobao.org/wrappy/-/wrappy-1.0.2.tgz}
     dev: true
+
+  /ws/8.12.0:
+    resolution: {integrity: sha512-kU62emKIdKVeEIOIKVegvqpXMSTAMLJozpHZaJNDYqBjzlSYXQGviYwN1osDLJ9av68qHd4a2oSjd7yD4pacig==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: '>=5.0.2'
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+    dev: false
 
   /xml-name-validator/4.0.0:
     resolution: {integrity: sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npm.taobao.org/xml-name-validator/-/xml-name-validator-4.0.0.tgz}

@@ -1,4 +1,4 @@
-export type HMRPayload = ConnectedPayload | CommandPayload | FullReloadPayload | ErrorPayload;
+export type WsPayload = ConnectedPayload | CommandPayload | FullReloadPayload | ErrorPayload | PingPayload;
 
 export interface ConnectedPayload {
   type: 'connected';
@@ -14,6 +14,10 @@ export interface FullReloadPayload {
   path?: string;
 }
 
+export interface PingPayload {
+  type: 'ping';
+}
+
 export interface ErrorPayload {
   type: 'error';
   err: {};
@@ -24,7 +28,7 @@ export interface command {
 }
 
 export const setupWebSocket = (protocol: string, hostAndPath: string, onCloseWithoutOpen?: () => void) => {
-  const socket = new WebSocket(`${protocol}://${hostAndPath}`, 'vite-hmr');
+  const socket = new WebSocket(`${protocol}://${hostAndPath}`, 'clown-git');
   let isOpened = false;
 
   socket.addEventListener(
@@ -37,7 +41,7 @@ export const setupWebSocket = (protocol: string, hostAndPath: string, onCloseWit
 
   // Listen for messages
   socket.addEventListener('message', async ({ data }) => {
-    handleMessage(JSON.parse(data));
+    handleMessage(JSON.parse(data), socket);
   });
 
   // ping server
@@ -49,13 +53,20 @@ export const setupWebSocket = (protocol: string, hostAndPath: string, onCloseWit
       return;
     }
 
-    console.log(`[vite] server connection lost. polling for restart...`);
+    console.log(`[clown-git] server connection lost. polling for restart...`);
     location.reload();
   });
 
   return socket;
 };
 
-function handleMessage(payload: HMRPayload) {
+function handleMessage(payload: WsPayload, socket: WebSocket) {
+  if (payload.type === 'connected') {
+    setInterval(() => {
+      if (socket.readyState === socket.OPEN) {
+        socket.send('{"type":"ping"}');
+      }
+    }, 1000);
+  }
   console.log('log=>ws=>90:payload:%o', payload);
 }

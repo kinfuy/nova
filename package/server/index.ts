@@ -5,6 +5,7 @@ import { green, white } from 'kolorist';
 import { createLogger, printServerUrls } from './logger';
 import { createServerCloseFn, httpServerStart, openBrowser, resolveHttpServer } from './http';
 import { checkGitRepo } from './check';
+import { setupWebSocket } from './ws';
 
 const alias: Record<string, string | undefined> = {
   js: 'application/javascript',
@@ -47,6 +48,8 @@ export const createServer = async () => {
   }
 
   const httpServer = await resolveHttpServer(httpServerOptions);
+
+  setupWebSocket(httpServer);
 
   const closeHttpServer = createServerCloseFn(httpServer);
 
