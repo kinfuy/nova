@@ -1,6 +1,7 @@
 import type { Server } from 'node:http';
 import { WebSocketServer } from 'ws';
-import { getGitCommits } from './middlewares/gitManager';
+import type { CommitOrdering } from './middlewares/git';
+import { getGitCommits } from './middlewares/git';
 
 export const setupWebSocket = (server: Server) => {
   const wss = new WebSocketServer({ server });
@@ -9,11 +10,12 @@ export const setupWebSocket = (server: Server) => {
     socket.on('message', (raw) => {
       let parsed: any;
       try {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         parsed = JSON.parse(String(raw));
       } catch {}
-      console.log(parsed);
     });
-    const commits = await getGitCommits();
+    const commits = await getGitCommits(null, 100, true, true, ['origin'], [], true, true, 'date' as CommitOrdering);
+
     socket.send(JSON.stringify({ type: 'connected', commits }));
   });
 
@@ -24,6 +26,6 @@ export const setupWebSocket = (server: Server) => {
       console.log(`WebSocket server error:\n${e.stack || e.message}`);
     }
   });
-  console.log(wss);
+
   return wss;
 };

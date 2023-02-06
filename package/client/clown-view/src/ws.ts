@@ -67,8 +67,6 @@ function handleMessage(payload: WsPayload, socket: WebSocket) {
   if (payload.type === 'connected') {
     const commitStore = useCommit();
     commitStore.setCommits(payload.commits);
-
-    console.log(commitStore.commits);
     setInterval(() => {
       if (socket.readyState === socket.OPEN) {
         socket.send('{"type":"ping"}');

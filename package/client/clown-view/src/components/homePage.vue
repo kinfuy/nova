@@ -6,6 +6,4 @@
 import { useCommit } from '../store/useCommit';
 
 const commitStore = useCommit();
-
-console.log(commitStore.commits);
 </script>
