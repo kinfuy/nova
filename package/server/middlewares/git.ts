@@ -2,8 +2,6 @@ import { execCommand } from '../shell';
 
 const GIT_LOG_SEPARATOR = '|';
 
-const EOL_REGEX = /\r\n|\r|\n/g;
-
 export interface GitStash {
   hash: string;
   baseHash: string;
@@ -45,9 +43,9 @@ export const getGitCommits = async (
     '%an',
     '%ae',
     '%at',
-    '%B' // Body
+    '%s%n%B' // Body
   ].join(GIT_LOG_SEPARATOR);
-  const args = ['-c', 'log.showSignature=false', 'log', `--max-count=${num}`, `--format=${gitFormatLog}`, `--${order}-order`];
+  const args = ['-c', 'log.showSignature=false', 'log', `--max-count=${num}`, `--format=----%n${gitFormatLog}`, `--${order}-order`];
   if (onlyFollowFirstParent) {
     args.push('--first-parent');
   }
@@ -82,19 +80,21 @@ export const getGitCommits = async (
 
   const stdio = await execCommand('git', args);
 
-  const lines = stdio.split(EOL_REGEX);
-  const commits: any[] = [];
-  for (let i = 0; i < lines.length - 1; i++) {
-    const line = lines[i].split(GIT_LOG_SEPARATOR);
-    if (line.length !== 6) continue;
-    commits.push({
-      hash: line[0],
-      parents: line[1] !== '' ? line[1].split(' ') : [],
-      author: line[2],
-      email: line[3],
-      date: parseInt(line[4]),
-      message: line[5]
+  const commits = stdio
+    .split('----\n')
+    .splice(1)
+    .map((line) => {
+      const [firstLine, ..._body] = line.split('\n');
+      const [hash, parents, author, email, date, message] = firstLine.split('|');
+      return {
+        hash,
+        parents: parents !== '' ? parents.split(' ') : [],
+        author,
+        email,
+        date: parseInt(date),
+        body: _body.join('\n'),
+        message
+      };
     });
-  }
   return commits;
 };
