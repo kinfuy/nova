@@ -1,10 +1,11 @@
 import type { Server } from 'node:http';
 import { WebSocketServer } from 'ws';
+import { getGitCommits } from './middlewares/gitManager';
 
 export const setupWebSocket = (server: Server) => {
   const wss = new WebSocketServer({ server });
 
-  wss.on('connection', (socket) => {
+  wss.on('connection', async (socket) => {
     socket.on('message', (raw) => {
       let parsed: any;
       try {
@@ -12,7 +13,8 @@ export const setupWebSocket = (server: Server) => {
       } catch {}
       console.log(parsed);
     });
-    socket.send(JSON.stringify({ type: 'connected' }));
+    const commits = await getGitCommits();
+    socket.send(JSON.stringify({ type: 'connected', commits }));
   });
 
   wss.on('error', (e: Error & { code: string }) => {

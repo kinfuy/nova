@@ -1,11 +1,11 @@
 <template>
-  <div></div>
+  <div v-for="commit in commitStore.commits" :key="commit.shortHash">{{ commit }}</div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { setupWebSocket } from '../ws';
-onMounted(() => {
-  const ws = setupWebSocket('ws', 'localhost:8080');
-});
+import { useCommit } from '../store/useCommit';
+
+const commitStore = useCommit();
+
+console.log(commitStore.commits);
 </script>

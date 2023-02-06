@@ -3,7 +3,7 @@ import type * as http from 'node:http';
 import { exec } from 'child_process';
 import type { Logger } from './logger';
 
-export const resolveHttpServer = async (app: any) => {
+export const resolveHttpServer = async (app: http.RequestListener) => {
   const { createServer } = await import('node:http');
   return createServer(app);
 };

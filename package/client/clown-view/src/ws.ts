@@ -1,7 +1,10 @@
+import { useCommit } from './store/useCommit';
+
 export type WsPayload = ConnectedPayload | CommandPayload | FullReloadPayload | ErrorPayload | PingPayload;
 
 export interface ConnectedPayload {
   type: 'connected';
+  commits: any;
 }
 
 export interface CommandPayload {
@@ -62,11 +65,14 @@ export const setupWebSocket = (protocol: string, hostAndPath: string, onCloseWit
 
 function handleMessage(payload: WsPayload, socket: WebSocket) {
   if (payload.type === 'connected') {
+    const commitStore = useCommit();
+    commitStore.setCommits(payload.commits);
+
+    console.log(commitStore.commits);
     setInterval(() => {
       if (socket.readyState === socket.OPEN) {
         socket.send('{"type":"ping"}');
       }
-    }, 1000);
+    }, 10000 * 6);
   }
-  console.log('log=>ws=>90:payload:%o', payload);
 }

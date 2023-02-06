@@ -14,7 +14,17 @@ const alias: Record<string, string | undefined> = {
   json: 'application/json'
 };
 
-export const createServer = async () => {
+export const defaultServerConfig: ClownGitServerConfig = {
+  port: 5124,
+  host: 'localhost'
+};
+
+export interface ClownGitServerConfig {
+  port: number;
+  host: string;
+}
+
+export const createServer = async ({ port, host } = defaultServerConfig) => {
   const httpServerOptions: RequestListener = (req, res) => {
     if (req.url === '/') {
       res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
@@ -53,23 +63,25 @@ export const createServer = async () => {
 
   const closeHttpServer = createServerCloseFn(httpServer);
 
-  const printStart = () => {
+  const printStart = (port: number) => {
     logger.clearScreen();
     logger.info(`\n${green(`CGIT SERVER V1.0.0`)}`);
-    printServerUrls(`\n   ${white('> Local: ')} http://localhost:8080`, logger.info);
+    printServerUrls(`\n   ${white('> Local: ')} http://${host}:${port}`, logger.info);
   };
 
   const server = {
     httpServer,
     listen: async () => {
-      await httpServerStart(httpServer, {
-        port: 8080,
+      const serverPort = await httpServerStart(httpServer, {
+        port,
         strictPort: false,
-        host: 'localhost',
+        host,
         logger
       });
-      openBrowser('http://localhost:8080');
-      printStart();
+      if (serverPort) {
+        openBrowser(`http://${host}:${serverPort}`);
+        printStart(serverPort);
+      }
       return server;
     },
     close: async () => {
