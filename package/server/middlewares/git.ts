@@ -92,7 +92,7 @@ export const getGitCommits = async (
         author,
         email,
         date: parseInt(date),
-        body: _body.join('\n'),
+        body: _body.filter(Boolean).join('\n'),
         message
       };
     });

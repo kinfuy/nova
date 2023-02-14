@@ -1,6 +1,6 @@
 import { cac } from 'cac';
 import pkg from '../package.json';
-import { createServer } from '../server';
+import { createServer } from './server';
 const cli = cac('clown-git');
 
 cli

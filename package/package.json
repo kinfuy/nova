@@ -6,7 +6,7 @@
   "author": "kinfuy",
   "license": "MIT",
   "bin": {
-    "cgit": "index.js"
+    "cgit": "cli.js"
   },
   "files": [
     "view",
@@ -19,6 +19,7 @@
     "execa": "5.0.1",
     "kolorist": "^1.5.1",
     "pinia": "^2.0.30",
+    "pinia-plugin-persitedstate": "^3.0.2",
     "prompts": "^2.4.2",
     "ws": "^8.12.0"
   }
