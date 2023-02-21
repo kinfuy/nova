@@ -1,7 +1,7 @@
 module.exports = {
-  extends: ["@alqmc/eslint-config"],
+  extends: ['@alqmc/eslint-config'],
   rules: {
-    "arrow-parens": "off",
-    "import/no-extraneous-dependencies": ["error", {"peerDependencies":false,"packageDir":["./"]}]
-  },
+    'arrow-parens': 'off',
+    'import/no-extraneous-dependencies': ['error', { peerDependencies: false, packageDir: ['./'] }]
+  }
 };

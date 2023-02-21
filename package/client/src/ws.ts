@@ -30,7 +30,7 @@ export interface command {
   shell: string;
 }
 
-export const setupWebSocket = (protocol: string, hostAndPath: string, onCloseWithoutOpen?: () => void) => {
+export const setupWebSocket = (protocol: string, hostAndPath: string, onCloseWithoutOpen?: () => void): WebSocket => {
   const socket = new WebSocket(`${protocol}://${hostAndPath}`, 'clown-git');
   let isOpened = false;
 

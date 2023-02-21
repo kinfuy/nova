@@ -1,9 +1,3 @@
 <template>
-  <HomePage />
+  <router-view></router-view>
 </template>
-
-<script setup lang="ts">
-import HomePage from './components/homePage.vue';
-import { setupWebSocket } from './ws';
-setupWebSocket('ws', 'localhost:5124');
-</script>
