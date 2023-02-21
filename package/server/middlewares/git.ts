@@ -43,7 +43,9 @@ export const getGitCommits = async (
     '%an',
     '%ae',
     '%at',
-    '%s%n%B' // Body
+    '%cn',
+    '%ce',
+    '%s%n%b' // Body
   ].join(GIT_LOG_SEPARATOR);
   const args = ['-c', 'log.showSignature=false', 'log', `--max-count=${num}`, `--format=----%n${gitFormatLog}`, `--${order}-order`];
   if (onlyFollowFirstParent) {
@@ -85,12 +87,18 @@ export const getGitCommits = async (
     .splice(1)
     .map((line) => {
       const [firstLine, ..._body] = line.split('\n');
-      const [hash, parents, author, email, date, message] = firstLine.split('|');
+      const [hash, parents, author, email, date, cauthor, cemail, message] = firstLine.split('|');
       return {
         hash,
-        parents: parents !== '' ? parents.split(' ') : [],
-        author,
-        email,
+        parents: parents ? parents.split(' ') : [],
+        author: {
+          author,
+          email
+        },
+        committer: {
+          author: cauthor,
+          email: cemail
+        },
         date: parseInt(date),
         body: _body.filter(Boolean).join('\n'),
         message
