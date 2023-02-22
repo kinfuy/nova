@@ -4,9 +4,7 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 import { useWebSocket } from './hooks/useWebSocket';
 import router from './router';
 
-import '@unocss/reset/tailwind.css';
-import './styles/index.css';
-import 'uno.css';
+import './styles/index.less';
 
 import App from './App.vue';
 const pinia = createPinia();
