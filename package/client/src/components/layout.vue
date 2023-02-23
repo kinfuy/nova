@@ -2,20 +2,18 @@
   <div class="clown-git-layout">
     <div class="layout-silder">
       <div class="silder-logo">
-        <img src="../../public/favicon.png" alt="" />
-        <span>clown-git</span>
+        <img src="../../public/favicon.png" alt="logo" />
+        <span>Clown Git</span>
       </div>
-      <div class="silder-menu">
-        <span>Graph</span>
-        <span class="text-desc">分支管理</span>
-      </div>
-      <div class="silder-menu">
-        <span>GitFlow</span>
-        <span class="text-desc">流程预设</span>
-      </div>
-      <div class="silder-menu">
-        <span>Setting</span>
-        <span class="text-desc">全局配置</span>
+      <div
+        v-for="item in menuOptions"
+        :key="item.name"
+        class="silder-menu"
+        :class="{ 'menu-active': activeMenu === item.name }"
+        @click="handleClick(item)"
+      >
+        <span>{{ item.name.replace(/^\S/, (s) => s.toUpperCase()) }}</span>
+        <span class="text-desc">{{ item.zh_name }}</span>
       </div>
     </div>
     <div class="layout-content">
@@ -24,7 +22,45 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { ref, watchEffect } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+
+interface Menu {
+  name: string;
+  zh_name: string;
+}
+
+const menuOptions = ref<Menu[]>([
+  {
+    name: 'graph',
+    zh_name: '分支管理'
+  },
+  {
+    name: 'gitFlow',
+    zh_name: '流程预设'
+  },
+  {
+    name: 'setting',
+    zh_name: '全局配置'
+  }
+]);
+
+const route = useRoute();
+const router = useRouter();
+
+const activeMenu = ref('');
+
+watchEffect(() => {
+  activeMenu.value = (route.name as string) || '';
+});
+
+const handleClick = (item: Menu) => {
+  router.push({
+    name: item.name
+  });
+};
+</script>
 
 <style lang="less" scoped>
 @import '../styles/var.less';
@@ -32,7 +68,7 @@
   width: 100%;
   display: flex;
   .layout-silder {
-    width: 300px;
+    width: 260px;
     height: 100vh;
     background-color: rgba(249, 250, 251);
     box-sizing: border-box;
@@ -69,9 +105,16 @@
         }
       }
     }
+    .menu-active {
+      background-color: #f1f1f1;
+      color: @theme-color;
+      .text-desc {
+        color: @theme-color;
+      }
+    }
   }
   .layout-content {
-    width: calc(100% - 300px);
+    width: calc(100% - 260px);
     flex: 0 0 auto;
   }
 }

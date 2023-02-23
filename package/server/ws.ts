@@ -1,17 +1,32 @@
 import type { Server } from 'node:http';
 import { WebSocketServer } from 'ws';
+import type { Action } from '../typings/flow';
+import type { Logger } from './logger';
 import type { CommitOrdering } from './middlewares/git';
 import { getGitCommits } from './middlewares/git';
+import { execCommand } from './shell';
 
-export const setupWebSocket = (server: Server) => {
+export const setupWebSocket = (server: Server, logger: Logger) => {
   const wss = new WebSocketServer({ server });
 
   wss.on('connection', async (socket) => {
-    socket.on('message', (raw) => {
+    socket.on('message', async (raw) => {
       let parsed: any;
       try {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         parsed = JSON.parse(String(raw));
+        // eslint-disable-next-line no-restricted-syntax
+        debugger;
+        if (parsed.key === 'RUN_FLOW') {
+          const actions: Action[] = parsed.flow.actions;
+          logger.clearScreen();
+          logger.info(`run ${parsed.flow.name}`);
+          for (let i = 0; i < actions.length; i++) {
+            await execCommand(actions[i].command, actions[i].args);
+            logger.info(`run action setp${i + 1}`);
+          }
+        }
+        // eslint-disable-next-line no-restricted-syntax
+        debugger;
       } catch {}
     });
     const commits = await getGitCommits(null, 100, true, true, ['origin'], [], true, true, 'date' as CommitOrdering);

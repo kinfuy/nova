@@ -39,13 +39,13 @@ function clearScreen() {
 export const createLogger = (): Logger => {
   return {
     info: (msg) => {
-      console.log(cyan(`   ${msg}`));
+      console.log(cyan(`${msg}`));
     },
     warn: (msg) => {
-      console.log(yellow(`   ${msg}`));
+      console.log(yellow(`${msg}`));
     },
     error: (msg) => {
-      console.log(red(`   ${msg}`));
+      console.log(red(`${msg}`));
     },
     clearScreen: () => {
       clearScreen();
@@ -54,5 +54,5 @@ export const createLogger = (): Logger => {
 };
 
 export const printServerUrls = (url: string, info: Logger['info']) => {
-  info(url);
+  info(`   ${url}`);
 };

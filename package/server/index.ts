@@ -59,7 +59,7 @@ export const createServer = async ({ port, host } = defaultServerConfig) => {
 
   const httpServer = await resolveHttpServer(httpServerOptions);
 
-  setupWebSocket(httpServer);
+  setupWebSocket(httpServer, logger);
 
   const closeHttpServer = createServerCloseFn(httpServer);
 

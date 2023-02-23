@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 export const useCommit = defineStore(
-  'git-commit',
+  'commit',
   () => {
     const commits = ref<any>([]);
     function setCommits(val: any[]) {
