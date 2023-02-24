@@ -1,7 +1,7 @@
 import type { RequestListener } from 'node:http';
 import { createReadStream, readFileSync, stat } from 'node:fs';
 import { extname, join } from 'node:path';
-import { green, white } from 'kolorist';
+import { green } from 'kolorist';
 import { createLogger, printServerUrls } from './logger';
 import { createServerCloseFn, httpServerStart, openBrowser, resolveHttpServer } from './http';
 import { checkGitRepo } from './check';
@@ -51,7 +51,7 @@ export const createServer = async ({ port, host } = defaultServerConfig) => {
   const logger = createLogger();
 
   if (!checkGitRepo()) {
-    logger.clearScreen();
+    logger.clearScreen('error');
     logger.info(`\n${green(`CGIT SERVER V1.0.0`)}`);
     logger.error('\n    can‘t find git repo');
     return;
@@ -64,9 +64,9 @@ export const createServer = async ({ port, host } = defaultServerConfig) => {
   const closeHttpServer = createServerCloseFn(httpServer);
 
   const printStart = (port: number) => {
-    logger.clearScreen();
-    logger.info(`\n${green(`CGIT SERVER V1.0.0`)}`);
-    printServerUrls(`\n   ${white('> Local: ')} http://${host}:${port}`, logger.info);
+    logger.clearScreen('error');
+    logger.info(`\n${green(`CGIT SERVER V1.0.0`)}\n`);
+    printServerUrls(`http://${host}:${port}`, logger.info);
   };
 
   const server = {

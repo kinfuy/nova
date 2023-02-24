@@ -1,7 +1,7 @@
 import readline from 'node:readline';
 import type { RollupError } from 'rollup';
 
-import { cyan, red, yellow } from 'kolorist';
+import { bold, cyan, dim, green, red, yellow } from 'kolorist';
 export type LogType = 'error' | 'warn' | 'info';
 export type LogLevel = LogType | 'silent';
 
@@ -17,6 +17,12 @@ export const LogLevels: Record<LogLevel, number> = {
   info: 3
 };
 
+export interface LoggerOptions {
+  prefix?: string;
+  allowClearScreen?: boolean;
+  customLogger?: Logger;
+}
+
 export interface LogErrorOptions extends LogOptions {
   error?: Error | RollupError | null;
 }
@@ -24,8 +30,11 @@ export interface LogErrorOptions extends LogOptions {
 export interface Logger {
   info(msg: string, options?: LogOptions): void;
   warn(msg: string, options?: LogOptions): void;
+  warnOnce(msg: string, options?: LogOptions): void;
   error(msg: string, options?: LogErrorOptions): void;
-  clearScreen(type?: LogType): void;
+  clearScreen(type: LogType): void;
+  hasErrorLogged(error: Error | RollupError): boolean;
+  hasWarned: boolean;
 }
 
 function clearScreen() {
@@ -36,23 +45,85 @@ function clearScreen() {
   readline.clearScreenDown(process.stdout);
 }
 
-export const createLogger = (): Logger => {
-  return {
-    info: (msg) => {
-      console.log(cyan(`${msg}`));
+let lastType: LogType | undefined;
+let lastMsg: string | undefined;
+let sameCount = 0;
+
+export const createLogger = (level: LogLevel = 'info', options: LoggerOptions = {}): Logger => {
+  const loggedErrors = new WeakSet<Error | RollupError>();
+  const { prefix = '[clown-git]', allowClearScreen = true } = options;
+  const thresh = LogLevels[level];
+  const canClearScreen = allowClearScreen && process.stdout.isTTY && !process.env.CI;
+  const clear = canClearScreen ? clearScreen : () => {};
+
+  function output(type: LogType, msg: string, options: LogErrorOptions = {}) {
+    if (thresh >= LogLevels[type]) {
+      const method = type === 'info' ? 'log' : type;
+      const format = () => {
+        if (options.timestamp) {
+          const tag = type === 'info' ? cyan(bold(prefix)) : type === 'warn' ? yellow(bold(prefix)) : red(bold(prefix));
+          return `${dim(new Date().toLocaleTimeString())} ${tag} ${msg}`;
+        } else {
+          return msg;
+        }
+      };
+      if (options.error) {
+        loggedErrors.add(options.error);
+      }
+      if (canClearScreen) {
+        if (type === lastType && msg === lastMsg) {
+          sameCount++;
+          clear();
+          console[method](format(), yellow(`(x${sameCount + 1})`));
+        } else {
+          sameCount = 0;
+          lastMsg = msg;
+          lastType = type;
+          if (options.clear) {
+            clear();
+          }
+          console[method](format());
+        }
+      } else {
+        console[method](format());
+      }
+    }
+  }
+  const warnedMessages = new Set<string>();
+
+  const logger: Logger = {
+    hasWarned: false,
+    info(msg, opts) {
+      output('info', msg, opts);
     },
-    warn: (msg) => {
-      console.log(yellow(`${msg}`));
+    warn(msg, opts) {
+      logger.hasWarned = true;
+      output('warn', msg, opts);
     },
-    error: (msg) => {
-      console.log(red(`${msg}`));
+    warnOnce(msg, opts) {
+      if (warnedMessages.has(msg)) return;
+      logger.hasWarned = true;
+      output('warn', msg, opts);
+      warnedMessages.add(msg);
     },
-    clearScreen: () => {
-      clearScreen();
+    error(msg, opts) {
+      logger.hasWarned = true;
+      output('error', msg, opts);
+    },
+    clearScreen(type) {
+      if (thresh >= LogLevels[type]) {
+        clear();
+      }
+    },
+    hasErrorLogged(error) {
+      return loggedErrors.has(error);
     }
   };
+
+  return logger;
 };
 
-export const printServerUrls = (url: string, info: Logger['info']) => {
-  info(`   ${url}`);
-};
+export function printServerUrls(url: string, info: Logger['info']): void {
+  const colorUrl = (url: string) => cyan(url.replace(/:(\d+)\//, (_, port) => `:${bold(port)}/`));
+  info(`  ${green('➜')}  ${bold('Local')}:   ${colorUrl(url)}`);
+}
