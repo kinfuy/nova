@@ -16,16 +16,15 @@ export const setupWebSocket = (server: Server, logger: Logger) => {
         parsed = JSON.parse(String(raw));
         if (parsed.key === 'RUN_FLOW') {
           const actions: Action[] = parsed.flow.actions;
-          logger.clearScreen('error');
-          logger.info(`run ${parsed.flow.name}`);
+          logger.info(`flow => ${parsed.flow.name}`, { timestamp: true, clear: true });
           for (let i = 0; i < actions.length; i++) {
             await execCommand(actions[i].command, actions[i].args);
-            logger.info(`run action setp${i + 1}`);
+            logger.info(`action => ${actions[i].command} ${actions[i].args.join(' ')}`, { timestamp: true });
           }
         }
-        // eslint-disable-next-line no-restricted-syntax
-        debugger;
-      } catch {}
+      } catch {
+        
+      }
     });
     const commits = await getGitCommits(null, 100, true, true, ['origin'], [], true, true, 'date' as CommitOrdering);
 

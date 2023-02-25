@@ -2,8 +2,16 @@
   <div class="clown-flow">
     <div v-for="item in flows" :key="item.name" class="flow-card">
       <div class="crad-header">
-        <span class="card-title">{{ item.name }}</span>
-        <span class="card-alias" @click="handleClick(item)">{{ item.alias }}</span>
+        <div class="card-title">{{ item.name }}</div>
+        <div class="card-alias">
+          <span>sh：</span>
+          <span>{{ item.alias }}</span>
+        </div>
+        <div class="card-operate">
+          <Icon class="icon-btn" :size="24" @click="handleClick(item)">
+            <IconBofang />
+          </Icon>
+        </div>
       </div>
       <div class="card-desc">{{ item.desc }}</div>
     </div>
@@ -12,7 +20,9 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
-import type { Flow } from '../../../typings/flow';
+import type { Flow } from '@clown/types';
+import { IconBofang } from '@clown/icons';
+import Icon from '../components/Icon/index.vue';
 import { useWebSocket } from '../hooks/useWebSocket';
 import { useFlow } from '../store/useFlow';
 
@@ -30,6 +40,7 @@ const handleClick = (item: Flow) => {
 </script>
 
 <style lang="less" scoped>
+@import '../styles/var.less';
 .clown-flow {
   padding: 30px 10px 10px;
   display: flex;
@@ -38,29 +49,37 @@ const handleClick = (item: Flow) => {
   .flow-card {
     width: 200px;
     height: 60px;
-    box-shadow: 0 0 4px #ccc;
+    box-shadow: 0 0 4px #ddd;
     padding: 10px;
     margin-right: 20px;
-    cursor: pointer;
     &:hover {
-      background-color: rgba(29, 125, 250, 0.1);
+      box-shadow: 0 0 4px #ccc;
     }
     .crad-header {
       position: relative;
-      .card-alias {
+      .card-operate {
         position: absolute;
         right: 0;
         top: 0;
+      }
+      .card-title {
+        font-size: 16px;
+        width: calc(100% - 50px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .card-alias {
+        display: inline-block;
         font-size: 14px;
-        margin-left: 5px;
-        padding: 2px 8px;
-        background-color: rgb(29, 183, 29);
-        color: #fff;
+        color: #666;
         border-radius: 4px;
       }
     }
 
     .card-desc {
+      font-size: 14px;
       color: #999;
     }
   }

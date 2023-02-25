@@ -1,9 +1,9 @@
 <template>
-  <div class="clown-git-layout">
+  <div class="clown-layout">
     <div class="layout-silder">
       <div class="silder-logo">
         <img src="../assets/favicon.png" alt="logo" />
-        <span>Clown Git</span>
+        <span style="margin-left: 5px">Clown</span>
       </div>
       <div
         v-for="item in menuOptions"
@@ -12,8 +12,13 @@
         :class="{ 'menu-active': activeMenu === item.name }"
         @click="handleClick(item)"
       >
-        <span>{{ item.name.replace(/^\S/, (s) => s.toUpperCase()) }}</span>
-        <span class="text-desc">{{ item.zh_name }}</span>
+        <Icon :size="20">
+          <component :is="item.icon" />
+        </Icon>
+
+        <span style="margin-left: 5px">{{ item.zh_name }}</span>
+        <!-- <span>{{ item.name.replace(/^\S/, (s) => s.toUpperCase()) }}</span> -->
+        <!-- <span class="text-desc">{{ item.zh_name }}</span> -->
       </div>
     </div>
     <div class="layout-content">
@@ -23,26 +28,37 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watchEffect } from 'vue';
+import { markRaw, ref, watchEffect } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import Icon from '../components/Icon/index.vue';
+import { IconCloudshell, IconShezhi, IconGraph, IconShangpu } from '@clown/icons';
 
 interface Menu {
   name: string;
   zh_name: string;
+  icon: any;
 }
 
 const menuOptions = ref<Menu[]>([
   {
     name: 'graph',
-    zh_name: '分支管理'
+    zh_name: '分支管理',
+    icon: markRaw(IconCloudshell)
   },
   {
     name: 'gitFlow',
-    zh_name: '流程预设'
+    zh_name: '流程预设',
+    icon: markRaw(IconGraph)
+  },
+  {
+    name: 'shop',
+    zh_name: '应用商店',
+    icon: markRaw(IconShangpu)
   },
   {
     name: 'setting',
-    zh_name: '全局配置'
+    zh_name: '全局配置',
+    icon: markRaw(IconShezhi)
   }
 ]);
 
@@ -64,7 +80,7 @@ const handleClick = (item: Menu) => {
 
 <style lang="less" scoped>
 @import '../styles/var.less';
-.clown-git-layout {
+.clown-layout {
   width: 100%;
   display: flex;
   .layout-silder {

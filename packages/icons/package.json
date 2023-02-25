@@ -1,0 +1,53 @@
+{
+  "name": "@clown/icons",
+  "version": "0.0.1",
+  "description": "@clown/icons svg-icon lib",
+  "author": "kinfuy",
+  "license": "MIT",
+  "main": "dist/lib/index.js",
+  "module": "dist/es/index.mjs",
+  "unpkg": "dist/index.iife.min.js",
+  "types": "dist/types",
+  "scripts": {
+    "build": "gulp --require sucrase/register/ts -f build/gulpfile.ts",
+    "build:types": "vue-tsc --declaration --emitDeclarationOnly",
+    "clean": "rimraf dist && rimraf pacKage/libs"
+  },
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "vue": "^3.2.0"
+  },
+  "devDependencies": {
+    "@alqmc/build-ts": "^0.0.9",
+    "@alqmc/build-utils": "^0.0.5",
+    "@alqmc/build-vue": "^0.0.7",
+    "@rollup/plugin-image": "^3.0.2",
+    "@rollup/plugin-replace": "^5.0.2",
+    "@types/fs-extra": "^9.0.13",
+    "@types/gulp": "^4.0.10",
+    "@types/gulp-autoprefixer": "^0.0.33",
+    "@types/gulp-clean-css": "^4.3.0",
+    "@types/gulp-less": "^0.0.32",
+    "@types/prettier": "^2.7.2",
+    "@types/node": "^18.11.9",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "camelcase": "^6.3.0",
+    "fast-glob": "^3.2.12",
+    "fs-extra": "^10.1.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-less": "^5.0.0",
+    "kolorist": "^1.6.0",
+    "prettier": "^2.8.3",
+    "rollup": "^2",
+    "rollup-plugin-esbuild": "^4.8.2",
+    "rollup-plugin-postcss": "^4.0.2",
+    "typescript": "^4.9.3",
+    "unplugin-vue": "^0.2.2",
+    "vue": "^3.2.45",
+    "vue-tsc": "^0.31.4"
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "name": "clown-git",
+  "name": "clown",
   "description": "Custom git information",
   "author": "kinfuy",
   "license": "MIT",
@@ -8,7 +8,9 @@
     "build:client": "pnpm run -C packages/client build",
     "build:core": "pnpm run -C packages/core build",
     "build:cli": "pnpm run -C packages/cli build",
-    "build": "pnpm run build:core  && pnpm run  build:cli && pnpm run build:client",
+    "build:icons": "pnpm run -C packages/icons build",
+    "build:types": "pnpm run -C packages/types build",
+    "build": "pnpm run build:core && pnpm run build:types  && pnpm run  build:cli && pnpm run build:client",
     "lint": "eslint .",
     "log": "changeloger",
     "prepare": "husky install"

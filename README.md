@@ -1,4 +1,4 @@
-<p align="center"> clown-git</p>
+<p align="center"> clown</p>
 
 打造超级个人工作 cli 工作站,重新定义 cli 工具
 

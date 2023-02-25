@@ -31,7 +31,7 @@ export interface command {
 }
 
 export const setupWebSocket = (protocol: string, hostAndPath: string, onCloseWithoutOpen?: () => void): WebSocket => {
-  const socket = new WebSocket(`${protocol}://${hostAndPath}`, 'clown-git');
+  const socket = new WebSocket(`${protocol}://${hostAndPath}`, 'clown');
   let isOpened = false;
 
   socket.addEventListener(
@@ -56,7 +56,7 @@ export const setupWebSocket = (protocol: string, hostAndPath: string, onCloseWit
       return;
     }
 
-    console.log(`[clown-git] server connection lost. polling for restart...`);
+    console.log(`[clown] server connection lost. polling for restart...`);
     location.reload();
   });
 

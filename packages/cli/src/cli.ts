@@ -4,7 +4,7 @@ import { cac } from 'cac';
 import { createServer } from '@clown/core';
 import pkg from '../package.json';
 import { join } from 'path';
-const cli = cac('clown-git');
+const cli = cac('clown');
 
 export const defaultServerConfig = {
   rootdir:__dirname,
