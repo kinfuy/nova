@@ -11,6 +11,6 @@
     "forceConsistentCasingInFileNames": true,
     "types": ["vite/client"]
   },
-  "include": ["packages", "typings"],
-  "exclude": ["node_modules"]
+  "include": ["server/**/*"],
+  "exclude": ["node_modules", "build/**/*"]
 }

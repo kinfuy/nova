@@ -6,7 +6,7 @@ export const execCommand = async (cmd: string, args: string[]) => {
   return res.stdout.trim();
 };
 
-export const run = (command: string, dir: string = cwd()) => {
+export const runCommand = (command: string, dir: string = cwd()) => {
   const [cmd, ...args] = command.split(' ');
   return new Promise<void>((resolve, reject) => {
     const app = spawn(cmd, args, {

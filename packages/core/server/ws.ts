@@ -1,6 +1,6 @@
 import type { Server } from 'node:http';
 import { WebSocketServer } from 'ws';
-import type { Action } from '../typings/flow';
+import type { Action } from '@clown/types';
 import type { Logger } from './logger';
 import type { CommitOrdering } from './middlewares/git';
 import { getGitCommits } from './middlewares/git';
@@ -14,11 +14,9 @@ export const setupWebSocket = (server: Server, logger: Logger) => {
       let parsed: any;
       try {
         parsed = JSON.parse(String(raw));
-        // eslint-disable-next-line no-restricted-syntax
-        debugger;
         if (parsed.key === 'RUN_FLOW') {
           const actions: Action[] = parsed.flow.actions;
-          logger.clearScreen();
+          logger.clearScreen('error');
           logger.info(`run ${parsed.flow.name}`);
           for (let i = 0; i < actions.length; i++) {
             await execCommand(actions[i].command, actions[i].args);

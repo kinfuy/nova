@@ -1,0 +1,33 @@
+{
+  "name": "clown",
+  "version": "0.0.1",
+  "private": false,
+  "description": "super cli workbeetch",
+  "author": "kinfuy",
+  "license": "MIT",
+  "bin": {
+    "cg": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsup && pnpm run link",
+    "link": "pnpm link --global"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@clown/types": "workspace:*",
+    "@types/ws": "^8.5.4",
+    "@types/node": "^17.0.21",
+    "@types/prompts": "^2.0.14",
+    "tsup": "6.6.3"
+  },
+  "dependencies": {
+    "cac": "^6.7.14",
+    "execa": "5.0.1",
+    "kolorist": "^1.5.1",
+    "prompts": "^2.4.2",
+    "ws": "^8.12.0",
+    "@clown/core": "workspace:*"
+  }
+}

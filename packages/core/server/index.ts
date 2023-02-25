@@ -15,24 +15,26 @@ const alias: Record<string, string | undefined> = {
 };
 
 export const defaultServerConfig: ClownGitServerConfig = {
+  rootdir:__dirname,
   port: 5124,
   host: 'localhost'
 };
 
 export interface ClownGitServerConfig {
+  rootdir:string,
   port: number;
   host: string;
 }
 
-export const createServer = async ({ port, host } = defaultServerConfig) => {
+export const createServer = async ({ port, host,rootdir } = defaultServerConfig) => {
   const httpServerOptions: RequestListener = (req, res) => {
     if (req.url === '/') {
       res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-      const view = readFileSync(join(__dirname, './view/index.html'));
+      const view = readFileSync(join(rootdir, './view/index.html'));
       res.end(view);
       return;
     }
-    const filePath = join(__dirname, '/view/', req.url || '');
+    const filePath = join(rootdir, '/view/', req.url || '');
     stat(filePath, (err, stats) => {
       const type = extname(filePath).replace('.', '');
       res.writeHead(200, { 'Content-Type': `${alias[type]}; charset=utf-8` });

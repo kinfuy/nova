@@ -2,7 +2,7 @@
   <div class="clown-git-layout">
     <div class="layout-silder">
       <div class="silder-logo">
-        <img src="../../public/favicon.png" alt="logo" />
+        <img src="../assets/favicon.png" alt="logo" />
         <span>Clown Git</span>
       </div>
       <div

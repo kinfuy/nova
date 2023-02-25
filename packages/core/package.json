@@ -1,0 +1,29 @@
+{
+    "name": "@clown/core",
+    "version": "0.0.1",
+    "dependencies": {
+        "execa": "^5.0.1",
+        "ws": "^8.12.0",
+        "kolorist": "^1.5.1"
+    },
+    "devDependencies": {
+        "@clown/types": "workspace:*",
+        "tsup": "6.6.3"
+    },
+    "scripts": {
+        "build": "tsup",
+        "clear": "rimraf dist"
+    },
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": ".",
+    "exports": {
+        ".": {
+            "require": "./dist/index.js",
+            "import": "./dist/index.mjs"
+        }
+    },
+    "files": [
+        "dist"
+    ]
+}

@@ -5,12 +5,10 @@
     "strict": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
     "baseUrl": "dist",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "types": ["vite/client"]
-  },
-  "include": ["packages", "typings"],
-  "exclude": ["node_modules"]
+    "forceConsistentCasingInFileNames": true
+  }
 }
