@@ -1,30 +1,76 @@
 import type { Server } from 'node:http';
-import { WebSocketServer } from 'ws';
-import type { Action } from '@clown/types';
-import type { Logger } from './logger';
+import type { WebSocket as WebSocketRaw } from 'ws';
+import { WebSocketServer as WebSocketServerRaw } from 'ws';
+import type { ClownPayload, CustomPayload, InferCustomEventPayload } from '@clown/types';
 import type { CommitOrdering } from './middlewares/git';
 import { getGitCommits } from './middlewares/git';
-import { execCommand } from './shell';
 
-export const setupWebSocket = (server: Server, logger: Logger) => {
-  const wss = new WebSocketServer({ server });
+export interface WebSocketClient {
+  /**
+   * Send event to the client
+   */
+  send(payload: ClownPayload): void;
+  /**
+   * Send custom event
+   */
+  send(event: string, payload?: CustomPayload['data']): void;
+  /**
+   * The raw WebSocket instance
+   * @advanced
+   */
+  socket: WebSocketRaw;
+}
+
+export type WebSocketCustomListener<T> = (data: T, client: WebSocketClient) => void;
+
+export interface WebSocketServer {
+  /**
+   * Get all connected clients.
+   */
+  clients: Set<WebSocketClient>;
+  /**
+   * Send custom event
+   */
+  send<T extends string>(event: T, payload?: InferCustomEventPayload<T>): void;
+  /**
+   * Disconnect all clients and terminate the server.
+   */
+  close(): Promise<void>;
+  /**
+   * Handle custom event emitted by `import.meta.hot.send`
+   */
+  on: {
+    <T extends string>(event: T, listener: WebSocketCustomListener<InferCustomEventPayload<T>>): void;
+  };
+  /**
+   * Unregister event listener.
+   */
+  off: {
+    (event: string, listener: Function): void;
+  };
+}
+
+const wsServerEvents = ['connection', 'error', 'message'];
+
+export const setupWebSocket = (server: Server): WebSocketServer => {
+  const clientsMap = new WeakMap<WebSocketRaw, WebSocketClient>();
+
+  const customListeners = new Map<string, Set<WebSocketCustomListener<any>>>();
+
+  const wss = new WebSocketServerRaw({ server });
 
   wss.on('connection', async (socket) => {
     socket.on('message', async (raw) => {
+      if (!customListeners.size) return;
       let parsed: any;
       try {
         parsed = JSON.parse(String(raw));
-        if (parsed.key === 'RUN_FLOW') {
-          const actions: Action[] = parsed.flow.actions;
-          logger.info(`flow => ${parsed.flow.name}`, { timestamp: true, clear: true });
-          for (let i = 0; i < actions.length; i++) {
-            await execCommand(actions[i].command, actions[i].args);
-            logger.info(`action => ${actions[i].command} ${actions[i].args.join(' ')}`, { timestamp: true });
-          }
-        }
-      } catch {
-        
-      }
+      } catch {}
+      if (!parsed || parsed.type !== 'custom' || !parsed.event) return;
+      const listeners = customListeners.get(parsed.event);
+      if (!listeners?.size) return;
+      const client = getSocketClient(socket);
+      listeners.forEach((listener) => listener(parsed.data, client));
     });
     const commits = await getGitCommits(null, 100, true, true, ['origin'], [], true, true, 'date' as CommitOrdering);
 
@@ -39,5 +85,89 @@ export const setupWebSocket = (server: Server, logger: Logger) => {
     }
   });
 
-  return wss;
+  function getSocketClient(socket: WebSocketRaw) {
+    if (!clientsMap.has(socket)) {
+      clientsMap.set(socket, {
+        send: (...args) => {
+          let payload: any;
+          if (typeof args[0] === 'string') {
+            payload = {
+              type: 'custom',
+              event: args[0],
+              data: args[1]
+            };
+          } else {
+            payload = args[0];
+          }
+          socket.send(JSON.stringify(payload));
+        },
+        socket
+      });
+    }
+    return clientsMap.get(socket)!;
+  }
+
+  return {
+    on: ((event: string, fn: () => void) => {
+      if (wsServerEvents.includes(event)) wss.on(event, fn);
+      else {
+        if (!customListeners.has(event)) {
+          customListeners.set(event, new Set());
+        }
+        customListeners.get(event)!.add(fn);
+      }
+    }) as WebSocketServer['on'],
+    off: ((event: string, fn: () => void) => {
+      if (wsServerEvents.includes(event)) {
+        wss.off(event, fn);
+      } else {
+        customListeners.get(event)?.delete(fn);
+      }
+    }) as WebSocketServer['off'],
+
+    get clients() {
+      return new Set(Array.from(wss.clients).map(getSocketClient));
+    },
+
+    send(...args: any[]) {
+      let payload: ClownPayload;
+      if (typeof args[0] === 'string') {
+        payload = {
+          type: 'custom',
+          event: args[0],
+          data: args[1]
+        };
+      } else {
+        payload = args[0];
+      }
+
+      if (payload.type === 'error' && !wss.clients.size) {
+        // bufferedError = payload;
+        return;
+      }
+
+      const stringified = JSON.stringify(payload);
+      wss.clients.forEach((client) => {
+        // readyState 1 means the connection is open
+        if (client.readyState === 1) {
+          client.send(stringified);
+        }
+      });
+    },
+
+    close() {
+      return new Promise((resolve, reject) => {
+        wss.clients.forEach((client) => {
+          client.terminate();
+        });
+        wss.close((err) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve();
+          }
+        });
+      });
+    }
+  };
 };

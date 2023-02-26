@@ -6,6 +6,8 @@ import { createLogger, printServerUrls } from './logger';
 import { createServerCloseFn, httpServerStart, openBrowser, resolveHttpServer } from './http';
 import { checkGitRepo } from './check';
 import { setupWebSocket } from './ws';
+import { Action } from '@clown/types/dist';
+import { execCommand } from './shell';
 
 const alias: Record<string, string | undefined> = {
   js: 'application/javascript',
@@ -61,7 +63,21 @@ export const createServer = async ({ port, host,rootdir } = defaultServerConfig)
 
   const httpServer = await resolveHttpServer(httpServerOptions);
 
-  setupWebSocket(httpServer, logger);
+  const wss = setupWebSocket(httpServer, logger);
+
+  wss.on('run',async (data)=>{
+    try {
+      if (data.key === 'RUN_FLOW') {
+        const actions: Action[] = data.flow.actions;
+        logger.info(`flow => ${data.flow.name}`, { timestamp: true, clear: true });
+        for (let i = 0; i < actions.length; i++) {
+          await execCommand(actions[i].command, actions[i].args);
+          logger.info(`action => ${actions[i].command} ${actions[i].args.join(' ')}`, { timestamp: true });
+        }
+      }
+    } catch {}
+  })
+  
 
   const closeHttpServer = createServerCloseFn(httpServer);
 

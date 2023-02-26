@@ -11,6 +11,7 @@
     "build:icons": "pnpm run -C packages/icons build",
     "build:types": "pnpm run -C packages/types build",
     "build": "pnpm run build:core && pnpm run build:types  && pnpm run  build:cli && pnpm run build:client",
+    "release": "bumpp package.json packages/*/package.json --commit --push --tag && pnpm -r publish --access public",
     "lint": "eslint .",
     "log": "changeloger",
     "prepare": "husky install"
@@ -32,6 +33,7 @@
     "rollup": "^2.70.1",
     "sucrase": "^3.20.3",
     "tslib": "^2.3.1",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.3",
+    "bumpp": "^8.2.1"
   }
 }
