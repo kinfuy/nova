@@ -12,10 +12,10 @@ const getBundle = (minify: boolean) =>
       vue() as Plugin,
       esbuild({
         target: 'es2018',
-        minify,
-      }),
+        minify
+      })
     ],
-    external: ['vue'],
+    external: ['vue']
   });
 
 const buildBundled = async (minify: boolean) => {
@@ -23,24 +23,21 @@ const buildBundled = async (minify: boolean) => {
   const tasks = [
     bundle.write({
       format: 'iife',
-      file: path.resolve(
-        buildOutpuPath,
-        `index.iife${minify ? '.min' : ''}.js`
-      ),
+      file: path.resolve(buildOutpuPath, `index.iife${minify ? '.min' : ''}.js`),
       name: 'ESICON',
-      globals: { vue: 'Vue' },
-    }),
+      globals: { vue: 'Vue' }
+    })
   ];
   if (!minify)
     tasks.push(
       bundle.write({
         format: 'cjs',
         file: path.resolve(buildOutpuPath, `index${minify ? '.min' : ''}.js`),
-        globals: { vue: 'Vue' },
+        globals: { vue: 'Vue' }
       }),
       bundle.write({
         format: 'esm',
-        file: path.resolve(buildOutpuPath, `index${minify ? '.min' : ''}.mjs`),
+        file: path.resolve(buildOutpuPath, `index${minify ? '.min' : ''}.mjs`)
       })
     );
   await Promise.all(tasks);
@@ -52,22 +49,18 @@ const buildUnbundled = async () => {
     format: 'es',
     dir: path.resolve(buildOutpuPath, 'es'),
     preserveModules: true,
-    entryFileNames: '[name].mjs',
+    entryFileNames: '[name].mjs'
   });
   bundle.write({
     format: 'cjs',
     dir: path.resolve(buildOutpuPath, 'lib'),
     preserveModules: true,
     entryFileNames: '[name].js',
-    exports: 'named',
+    exports: 'named'
   });
 };
 
 export const buildIcon = async () => {
   log.info('building...');
-  await Promise.all([
-    buildUnbundled(),
-    buildBundled(true),
-    buildBundled(false),
-  ]);
+  await Promise.all([buildUnbundled(), buildBundled(true), buildBundled(false)]);
 };

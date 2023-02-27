@@ -1,12 +1,5 @@
 <template>
-  <svg
-    class="icon"
-    width="32px"
-    height="32.00px"
-    viewBox="0 0 1024 1024"
-    version="1.1"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg class="icon" width="32px" height="32.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
     <path d="M0 0h1024v1024H0z" fill="currentColor" fill-opacity="0" />
     <path
       d="M480 540.757333V725.333333a32 32 0 1 0 64 0v-184.576a224 224 0 1 0-64 0zM512 160a160 160 0 1 1 0 320 160 160 0 0 1 0-320zM842.666667 768c0 91.221333-142.165333 160-330.666667 160S181.333333 859.221333 181.333333 768c0-67.157333 73.386667-122.112 196.266667-146.986667a32 32 0 0 1 12.8 62.72c-95.189333 19.285333-145.066667 57.002667-145.066667 84.266667 0 39.125333 103.893333 96 266.666667 96s266.666667-56.874667 266.666667-96c0-27.264-49.792-64.981333-145.066667-84.266667a32 32 0 0 1 12.8-62.72c122.88 24.874667 196.266667 79.829333 196.266667 146.986667z"
@@ -14,9 +7,10 @@
     />
   </svg>
 </template>
+
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue';
 export default defineComponent({
-  name: 'IconWeizhiBiezhen',
-})
+  name: 'IconWeizhiBiezhen'
+});
 </script>

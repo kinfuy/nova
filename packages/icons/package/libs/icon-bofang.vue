@@ -1,12 +1,5 @@
 <template>
-  <svg
-    class="icon"
-    width="32px"
-    height="32.00px"
-    viewBox="0 0 1024 1024"
-    version="1.1"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg class="icon" width="32px" height="32.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M518.5 922.2c-230.1 0-417.3-187.2-417.3-417.3S288.4 87.6 518.5 87.6s417.3 187.2 417.3 417.3-187.2 417.3-417.3 417.3z m0-771.3c-195.2 0-354 158.8-354 354s158.8 354 354 354 354-158.8 354-354-158.9-354-354-354z"
       fill="currentColor"
@@ -17,9 +10,10 @@
     />
   </svg>
 </template>
+
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue';
 export default defineComponent({
-  name: 'IconBofang',
-})
+  name: 'IconBofang'
+});
 </script>

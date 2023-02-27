@@ -1,12 +1,5 @@
 <template>
-  <svg
-    class="icon"
-    width="32px"
-    height="32.00px"
-    viewBox="0 0 1024 1024"
-    version="1.1"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg class="icon" width="32px" height="32.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
     <path d="M0 0h1024v1024H0z" fill="currentColor" fill-opacity="0" />
     <path
       d="M820.778667 306.218667l-188.330667-188.330667a74.112 74.112 0 0 0-52.778667-21.888H384A202.922667 202.922667 0 0 0 181.333333 298.666667v426.666666A202.922667 202.922667 0 0 0 384 928h256A202.922667 202.922667 0 0 0 842.666667 725.333333V358.997333a74.069333 74.069333 0 0 0-21.888-52.778666zM629.333333 205.226667l104.064 104.064H704a74.752 74.752 0 0 1-74.666667-74.666667V205.226667zM640 864H384A138.837333 138.837333 0 0 1 245.333333 725.333333V298.666667A138.837333 138.837333 0 0 1 384 160h181.333333V234.666667a138.837333 138.837333 0 0 0 138.666667 138.666666h74.666667V725.333333A138.837333 138.837333 0 0 1 640 864z"
@@ -14,9 +7,10 @@
     />
   </svg>
 </template>
+
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue';
 export default defineComponent({
-  name: 'IconWenjian',
-})
+  name: 'IconWenjian'
+});
 </script>

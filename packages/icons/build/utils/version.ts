@@ -4,10 +4,7 @@ import { resolve } from 'path';
 import { green, red } from 'kolorist';
 
 import pkg from '../../package/package.json';
-const pkgPaths = [
-  resolve(__dirname, '../../package/package.json'),
-  resolve(__dirname, './../../package.json'),
-];
+const pkgPaths = [resolve(__dirname, '../../package/package.json'), resolve(__dirname, './../../package.json')];
 
 /**
  * 修改version
@@ -56,20 +53,17 @@ const getVersion = (rl: readline.Interface): Promise<string> => {
 (() => {
   const rl = readline.createInterface({
     input: process.stdin,
-    output: process.stdout,
+    output: process.stdout
   });
 
-  rl.question(
-    `是否需要修改(当前:${pkg.version})版本号(Y/N)：`,
-    async (answer) => {
-      if (answer === 'Y' || answer === 'y') {
-        const version = await getVersion(rl);
-        pkgPaths.forEach((pkg) => {
-          changeVersion(version, pkg);
-        });
-      } else {
-        rl.close();
-      }
+  rl.question(`是否需要修改(当前:${pkg.version})版本号(Y/N)：`, async (answer) => {
+    if (answer === 'Y' || answer === 'y') {
+      const version = await getVersion(rl);
+      pkgPaths.forEach((pkg) => {
+        changeVersion(version, pkg);
+      });
+    } else {
+      rl.close();
     }
-  );
+  });
 })();

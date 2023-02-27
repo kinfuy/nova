@@ -3,11 +3,10 @@
 import { cac } from 'cac';
 import { createServer } from '@clown/core';
 import pkg from '../package.json';
-import { join } from 'path';
 const cli = cac('clown');
 
 export const defaultServerConfig = {
-  rootdir:__dirname,
+  rootdir: __dirname,
   port: 5124,
   host: 'localhost'
 };
@@ -26,7 +25,6 @@ cli
   .option('--port <port>', `[number] specify port`)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   .action(async (root: string, options: any) => {
-    const rootdir = join(__dirname)
     const server = await createServer(defaultServerConfig);
     if (!server) return;
     await server.listen();

@@ -18,7 +18,7 @@ export const getName = (file: string) => {
   const componentName = camelcase(filename, { pascalCase: true });
   return {
     filename,
-    componentName,
+    componentName
   };
 };
 
@@ -26,7 +26,7 @@ const formatCode = (code: string, parser: BuiltInParserName = 'typescript') =>
   format(code, {
     parser,
     semi: false,
-    singleQuote: true,
+    singleQuote: true
   });
 
 const transformToVueComponent = async (file: string) => {
@@ -67,15 +67,9 @@ const generateGlobalType = async (files: string[]) => {
       return `${componentName}: typeof import('@onestop/icons')['${componentName}']`;
     })
     .join('\n');
-  const globalType = formatCode(
-    `declare module 'vue'{  export interface GlobalComponents {${code}}} export {};`
-  );
+  const globalType = formatCode(`declare module 'vue'{  export interface GlobalComponents {${code}}} export {};`);
   await mkdir(buildOutpuPath);
-  await writeFile(
-    path.resolve(buildOutpuPath, 'global.d.ts'),
-    globalType,
-    'utf-8'
-  );
+  await writeFile(path.resolve(buildOutpuPath, 'global.d.ts'), globalType, 'utf-8');
 };
 export const buildSvgVue = async () => {
   log.info('generating vue components');

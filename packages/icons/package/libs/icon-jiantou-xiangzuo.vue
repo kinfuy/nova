@@ -1,12 +1,5 @@
 <template>
-  <svg
-    class="icon"
-    width="32px"
-    height="32.00px"
-    viewBox="0 0 1024 1024"
-    version="1.1"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg class="icon" width="32px" height="32.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
     <path d="M0 0h1024v1024H0z" fill="currentColor" fill-opacity="0" />
     <path
       d="M928 512a32 32 0 0 1-32 32H205.269333l244.053334 244.053333a32 32 0 1 1-45.226667 45.269334l-298.666667-298.666667a32 32 0 0 1 0-45.269333l298.666667-298.666667a32 32 0 1 1 45.269333 45.269333l-244.053333 244.053334H896a31.957333 31.957333 0 0 1 32 31.957333z"
@@ -14,9 +7,10 @@
     />
   </svg>
 </template>
+
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue';
 export default defineComponent({
-  name: 'IconJiantouXiangzuo',
-})
+  name: 'IconJiantouXiangzuo'
+});
 </script>

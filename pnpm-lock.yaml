@@ -46,7 +46,7 @@ importers:
     specifiers:
       '@clown/core': workspace:*
       '@clown/types': workspace:*
-      '@types/node': ^17.0.21
+      '@types/node': ^18.11.9
       '@types/prompts': ^2.0.14
       '@types/ws': ^8.5.4
       cac: ^6.7.14
@@ -64,7 +64,7 @@ importers:
       ws: 8.12.0
     devDependencies:
       '@clown/types': link:../types
-      '@types/node': 17.0.45
+      '@types/node': 18.14.1
       '@types/prompts': 2.4.2
       '@types/ws': 8.5.4
       tsup: 6.6.3
@@ -101,6 +101,7 @@ importers:
   packages/core:
     specifiers:
       '@clown/types': workspace:*
+      '@types/node': ^18.11.9
       execa: ^5.0.1
       kolorist: ^1.5.1
       tsup: 6.6.3
@@ -111,6 +112,7 @@ importers:
       ws: 8.12.0
     devDependencies:
       '@clown/types': link:../types
+      '@types/node': 18.14.1
       tsup: 6.6.3
 
   packages/icons:
@@ -1593,7 +1595,7 @@ packages:
   /@types/prompts/2.4.2:
     resolution: {integrity: sha512-TwNx7qsjvRIUv/BCx583tqF5IINEVjCNqg9ofKHRlSoUHE62WBHrem4B1HGXcIrG511v29d1kJ9a/t2Esz7MIg==}
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 18.14.1
       kleur: 3.0.3
     dev: true
 
@@ -1641,7 +1643,7 @@ packages:
   /@types/ws/8.5.4:
     resolution: {integrity: sha512-zdQDHKUgcX/zBc4GrwsE/7dVdAD8JR4EuiAXiiUhhfyIJXXb2+PrGshFyeXWQPMmmZ2XxgaqclgpIC7eTXc1mg==}
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 18.14.1
     dev: true
 
   /@typescript-eslint/eslint-plugin/5.50.0_go4drrxstycfikanvu45pi4vgq:

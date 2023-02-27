@@ -6,9 +6,9 @@ export const iconProps = {
   spin: Boolean,
   size: {
     type: Number,
-    default: 16,
+    default: 16
   },
-  color: String,
+  color: String
 };
 
 export type IconProps = ExtractPropTypes<typeof iconProps>;

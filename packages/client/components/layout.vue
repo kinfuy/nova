@@ -30,8 +30,8 @@
 <script lang="ts" setup>
 import { markRaw, ref, watchEffect } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { IconCloudshell, IconGraph, IconShangpu, IconShezhi } from '@clown/icons';
 import Icon from '../components/Icon/index.vue';
-import { IconCloudshell, IconShezhi, IconGraph, IconShangpu } from '@clown/icons';
 
 interface Menu {
   name: string;

@@ -12,8 +12,5 @@ export default defineConfig({
     //   include: './package/client/**'
     // }
   },
-  plugins: [
-    vue(),
-    vuejsx(),
-  ]
+  plugins: [vue(), vuejsx()]
 });

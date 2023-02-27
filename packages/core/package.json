@@ -1,29 +1,30 @@
 {
-    "name": "@clown/core",
-    "version": "0.0.1",
-    "dependencies": {
-        "execa": "^5.0.1",
-        "ws": "^8.12.0",
-        "kolorist": "^1.5.1"
-    },
-    "devDependencies": {
-        "@clown/types": "workspace:*",
-        "tsup": "6.6.3"
-    },
-    "scripts": {
-        "build": "tsup",
-        "clear": "rimraf dist"
-    },
-    "main": "./dist/index.js",
-    "module": "./dist/index.mjs",
-    "types": "dist",
-    "exports": {
-        ".": {
-            "require": "./dist/index.js",
-            "import": "./dist/index.mjs"
-        }
-    },
-    "files": [
-        "dist"
-    ]
+  "name": "@clown/core",
+  "version": "0.0.1",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "dist",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "clear": "rimraf dist"
+  },
+  "dependencies": {
+    "execa": "^5.0.1",
+    "kolorist": "^1.5.1",
+    "ws": "^8.12.0"
+  },
+  "devDependencies": {
+    "@clown/types": "workspace:*",
+    "@types/node": "^18.11.9",
+    "tsup": "6.6.3"
+  }
 }

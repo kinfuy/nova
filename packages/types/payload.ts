@@ -1,38 +1,34 @@
-export type ClownPayload =
-  | ConnectedPayload
-  | FullReloadPayload
-  | CustomPayload
-  | ErrorPayload
+export type ClownPayload = ConnectedPayload | FullReloadPayload | CustomPayload | ErrorPayload;
 
 export interface ConnectedPayload {
-  type: 'connected'
+  type: 'connected';
 }
 
 export interface FullReloadPayload {
-  type: 'full-reload'
-  path?: string
+  type: 'full-reload';
+  path?: string;
 }
 
 export interface CustomPayload {
-  type: 'custom'
-  event: string
-  data?: any
+  type: 'custom';
+  event: string;
+  data?: any;
 }
 
 export interface ErrorPayload {
-  type: 'error'
+  type: 'error';
   err: {
-    [name: string]: any
-    message: string
-    stack: string
-    id?: string
-    frame?: string
-    plugin?: string
-    pluginCode?: string
+    [name: string]: any;
+    message: string;
+    stack: string;
+    id?: string;
+    frame?: string;
+    plugin?: string;
+    pluginCode?: string;
     loc?: {
-      file?: string
-      line: number
-      column: number
-    }
-  }
+      file?: string;
+      line: number;
+      column: number;
+    };
+  };
 }

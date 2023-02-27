@@ -2,11 +2,11 @@ import type { RequestListener } from 'node:http';
 import { createReadStream, readFileSync, stat } from 'node:fs';
 import { extname, join } from 'node:path';
 import { green } from 'kolorist';
+import type { Action } from '@clown/types';
 import { createLogger, printServerUrls } from './logger';
 import { createServerCloseFn, httpServerStart, openBrowser, resolveHttpServer } from './http';
 import { checkGitRepo } from './check';
 import { setupWebSocket } from './ws';
-import { Action } from '@clown/types/dist';
 import { execCommand } from './shell';
 
 const alias: Record<string, string | undefined> = {
@@ -17,18 +17,18 @@ const alias: Record<string, string | undefined> = {
 };
 
 export const defaultServerConfig: ClownGitServerConfig = {
-  rootdir:__dirname,
+  rootdir: __dirname,
   port: 5124,
   host: 'localhost'
 };
 
 export interface ClownGitServerConfig {
-  rootdir:string,
+  rootdir: string;
   port: number;
   host: string;
 }
 
-export const createServer = async ({ port, host,rootdir } = defaultServerConfig) => {
+export const createServer = async ({ port, host, rootdir } = defaultServerConfig) => {
   const httpServerOptions: RequestListener = (req, res) => {
     if (req.url === '/') {
       res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
@@ -63,9 +63,9 @@ export const createServer = async ({ port, host,rootdir } = defaultServerConfig)
 
   const httpServer = await resolveHttpServer(httpServerOptions);
 
-  const wss = setupWebSocket(httpServer, logger);
+  const wss = setupWebSocket(httpServer);
 
-  wss.on('run',async (data)=>{
+  wss.on('run', async (data) => {
     try {
       if (data.key === 'RUN_FLOW') {
         const actions: Action[] = data.flow.actions;
@@ -76,8 +76,7 @@ export const createServer = async ({ port, host,rootdir } = defaultServerConfig)
         }
       }
     } catch {}
-  })
-  
+  });
 
   const closeHttpServer = createServerCloseFn(httpServer);
 

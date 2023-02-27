@@ -1,12 +1,5 @@
 <template>
-  <svg
-    class="icon"
-    width="32px"
-    height="32.00px"
-    viewBox="0 0 1024 1024"
-    version="1.1"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg class="icon" width="32px" height="32.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
     <path d="M0 0h1024v1024H0z" fill="currentColor" fill-opacity="0" />
     <path
       d="M662.613333 406.613333L557.226667 512l105.386666 105.386667a32 32 0 1 1-45.226666 45.269333L512 557.269333l-105.386667 105.386667a32 32 0 0 1-45.226666-45.269333L466.773333 512 361.386667 406.613333a32 32 0 0 1 45.269333-45.269333l105.386667 105.386667 105.386666-105.386667A32 32 0 1 1 662.613333 406.613333zM928 384v256A288.341333 288.341333 0 0 1 640 928H384A288.341333 288.341333 0 0 1 96 640V384A288.341333 288.341333 0 0 1 384 96h256A288.341333 288.341333 0 0 1 928 384z m-64 0A224.256 224.256 0 0 0 640 160H384A224.256 224.256 0 0 0 160 384v256A224.256 224.256 0 0 0 384 864h256A224.256 224.256 0 0 0 864 640V384z"
@@ -14,9 +7,10 @@
     />
   </svg>
 </template>
+
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue';
 export default defineComponent({
-  name: 'IconJishuBeishu',
-})
+  name: 'IconJishuBeishu'
+});
 </script>

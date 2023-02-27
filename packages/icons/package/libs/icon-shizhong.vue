@@ -1,12 +1,5 @@
 <template>
-  <svg
-    class="icon"
-    width="32px"
-    height="32.00px"
-    viewBox="0 0 1024 1024"
-    version="1.1"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg class="icon" width="32px" height="32.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
     <path d="M0 0h1024v1024H0z" fill="currentColor" fill-opacity="0" />
     <path
       d="M512 96c-229.76 0-416 186.24-416 416s186.24 416 416 416 416-186.24 416-416c-0.256-229.632-186.368-415.744-416-416z m0 768A352 352 0 1 1 864 512 352.384 352.384 0 0 1 512 864zM714.666667 512a32 32 0 0 1-32 32h-170.666667a32 32 0 0 1-32-32V298.666667a32 32 0 1 1 64 0v181.333333H682.666667a32 32 0 0 1 32 32z"
@@ -14,9 +7,10 @@
     />
   </svg>
 </template>
+
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue';
 export default defineComponent({
-  name: 'IconShizhong',
-})
+  name: 'IconShizhong'
+});
 </script>

@@ -1,11 +1,11 @@
 {
-    "name": "@clown/types",
-    "version": "0.0.1",
-    "scripts": {
-        "build": "tsup"
-    },
-    "devDependencies": {
-        "tsup": "6.6.3"
-    },
-    "types": "dist"
+  "name": "@clown/types",
+  "version": "0.0.1",
+  "types": "dist",
+  "scripts": {
+    "build": "tsup"
+  },
+  "devDependencies": {
+    "tsup": "6.6.3"
+  }
 }

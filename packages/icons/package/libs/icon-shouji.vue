@@ -1,12 +1,5 @@
 <template>
-  <svg
-    class="icon"
-    width="32px"
-    height="32.00px"
-    viewBox="0 0 1024 1024"
-    version="1.1"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg class="icon" width="32px" height="32.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
     <path d="M0 0h1024v1024H0z" fill="currentColor" fill-opacity="0" />
     <path
       d="M597.333333 96h-170.666666A202.922667 202.922667 0 0 0 224 298.666667v426.666666A202.922667 202.922667 0 0 0 426.666667 928h170.666666A202.922667 202.922667 0 0 0 800 725.333333V298.666667A202.922667 202.922667 0 0 0 597.333333 96zM736 725.333333A138.837333 138.837333 0 0 1 597.333333 864h-170.666666A138.837333 138.837333 0 0 1 288 725.333333V298.666667A138.837333 138.837333 0 0 1 426.666667 160h170.666666A138.837333 138.837333 0 0 1 736 298.666667v426.666666z m-149.333333 42.666667a32 32 0 0 1-32 32h-85.333334a32 32 0 1 1 0-64h85.333334a32 32 0 0 1 32 32z"
@@ -14,9 +7,10 @@
     />
   </svg>
 </template>
+
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue';
 export default defineComponent({
-  name: 'IconShouji',
-})
+  name: 'IconShouji'
+});
 </script>

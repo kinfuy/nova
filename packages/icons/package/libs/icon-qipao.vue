@@ -1,12 +1,5 @@
 <template>
-  <svg
-    class="icon"
-    width="32px"
-    height="32.00px"
-    viewBox="0 0 1024 1024"
-    version="1.1"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg class="icon" width="32px" height="32.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
     <path d="M0 0h1024v1024H0z" fill="currentColor" fill-opacity="0" />
     <path
       d="M725.333333 138.666667H298.666667A202.922667 202.922667 0 0 0 96 341.333333v554.666667a32.042667 32.042667 0 0 0 54.613333 22.613333l102.997334-102.997333c9.984-10.026667 23.552-15.658667 37.717333-15.616H725.333333A202.922667 202.922667 0 0 0 928 597.333333V341.333333A202.922667 202.922667 0 0 0 725.333333 138.666667zM864 597.333333A138.837333 138.837333 0 0 1 725.333333 736H291.370667a116.522667 116.522667 0 0 0-82.986667 34.389333L160 818.773333V341.333333A138.837333 138.837333 0 0 1 298.666667 202.666667h426.666666A138.837333 138.837333 0 0 1 864 341.333333v256z"
@@ -14,9 +7,10 @@
     />
   </svg>
 </template>
+
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue';
 export default defineComponent({
-  name: 'IconQipao',
-})
+  name: 'IconQipao'
+});
 </script>

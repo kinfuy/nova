@@ -4,5 +4,5 @@ export default defineConfig({
   entry: ['index.ts'],
   dts: {
     only: true
-  },
+  }
 });
