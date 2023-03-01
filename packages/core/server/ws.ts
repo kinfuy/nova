@@ -61,6 +61,8 @@ export const setupWebSocket = (server: Server): WebSocketServer => {
 
   wss.on('connection', async (socket) => {
     socket.on('message', async (raw) => {
+      // eslint-disable-next-line no-restricted-syntax
+      debugger;
       if (!customListeners.size) return;
       let parsed: any;
       try {
@@ -109,6 +111,8 @@ export const setupWebSocket = (server: Server): WebSocketServer => {
 
   return {
     on: ((event: string, fn: () => void) => {
+      // eslint-disable-next-line no-restricted-syntax
+      debugger;
       if (wsServerEvents.includes(event)) wss.on(event, fn);
       else {
         if (!customListeners.has(event)) {

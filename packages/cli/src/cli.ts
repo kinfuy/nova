@@ -18,16 +18,21 @@ cli
   .option('--clearScreen', `[boolean] allow/disable clear screen when logging`);
 
 cli
-  .command('[root]', 'start dev server')
-  .alias('serve')
-  .alias('dev')
-  .option('--host [host]', `[string] specify hostname`)
+  .command('config', 'start config server')
   .option('--port <port>', `[number] specify port`)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  .action(async (root: string, options: any) => {
-    const server = await createServer(defaultServerConfig);
+  .action(async (options: any) => {
+    console.log(options);
+    const server = await createServer(Object.assign(defaultServerConfig, options));
     if (!server) return;
     await server.listen();
+  });
+
+cli
+  .command('[flow]', 'start dev server')
+  .alias('f')
+  .action(async (flow: string, options: any) => {
+    console.log(flow);
+    console.log(options);
   });
 
 cli.help();

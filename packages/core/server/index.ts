@@ -3,6 +3,7 @@ import { createReadStream, readFileSync, stat } from 'node:fs';
 import { extname, join } from 'node:path';
 import { green } from 'kolorist';
 import type { Action } from '@clown/types';
+import { writeJsonFile } from '../fs/load';
 import { createLogger, printServerUrls } from './logger';
 import { createServerCloseFn, httpServerStart, openBrowser, resolveHttpServer } from './http';
 import { checkGitRepo } from './check';
@@ -65,15 +66,21 @@ export const createServer = async ({ port, host, rootdir } = defaultServerConfig
 
   const wss = setupWebSocket(httpServer);
 
-  wss.on('run', async (data) => {
+  wss.on('custom', async (data) => {
+    // eslint-disable-next-line no-restricted-syntax
+    debugger;
     try {
-      if (data.key === 'RUN_FLOW') {
+      if (data.enent === 'RUN_FLOW') {
         const actions: Action[] = data.flow.actions;
         logger.info(`flow => ${data.flow.name}`, { timestamp: true, clear: true });
         for (let i = 0; i < actions.length; i++) {
           await execCommand(actions[i].command, actions[i].args);
           logger.info(`action => ${actions[i].command} ${actions[i].args.join(' ')}`, { timestamp: true });
         }
+      }
+      if (data.enent === 'clown:create-flow') {
+        const configDir = `${join(rootdir, `.clown/flow/${data.name}.json`)}`;
+        writeJsonFile(configDir, data);
       }
     } catch {}
   });

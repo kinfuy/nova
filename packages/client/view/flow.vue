@@ -1,4 +1,5 @@
 <template>
+  <div class="clown-flow-create" @click="handleCreate">新建</div>
   <div class="clown-flow">
     <div v-for="item in flows" :key="item.name" class="flow-card">
       <div class="crad-header">
@@ -20,7 +21,7 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
-import type { Flow } from '@clown/types';
+import type { CustomPayload, Flow } from '@clown/types';
 import { IconBofang } from '@clown/icons';
 import Icon from '../components/Icon/index.vue';
 import { useWebSocket } from '../hooks/useWebSocket';
@@ -30,19 +31,40 @@ const { flows } = storeToRefs(useFlow());
 
 const ws = useWebSocket();
 const handleClick = (item: Flow) => {
-  ws!.send(
-    JSON.stringify({
-      key: 'RUN_FLOW',
+  const event: CustomPayload = {
+    type: 'custom',
+    event: 'clown:create-flow',
+    data: {
+      name: item.name,
       flow: item
-    })
-  );
+    }
+  };
+  ws!.send(JSON.stringify(event));
+};
+
+const handleCreate = () => {
+  // eslint-disable-next-line no-restricted-syntax
+  debugger;
+  const event: CustomPayload = {
+    type: 'custom',
+    event: 'clown:create-flow',
+    data: {
+      name: flows.value[0].name,
+      flow: flows.value[0]
+    }
+  };
+  ws!.send(JSON.stringify(event));
 };
 </script>
 
 <style lang="less" scoped>
 @import '../styles/var.less';
-.clown-flow {
+.clown-flow-create {
   padding: 30px 10px 10px;
+  cursor: pointer;
+}
+.clown-flow {
+  padding: 10px;
   display: flex;
   flex-wrap: wrap;
 
