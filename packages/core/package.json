@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@clown/types": "workspace:*",
+    "@clack/prompts": "^0.6.1",
     "@types/node": "^18.11.9",
     "tsup": "6.6.3"
   }

@@ -1,21 +1,13 @@
-import type { RequestListener } from 'node:http';
-import { createReadStream, readFileSync, stat } from 'node:fs';
-import { extname, join } from 'node:path';
 import { green } from 'kolorist';
-import type { Action } from '@clown/types';
-import { writeJsonFile } from '../fs/load';
-import { createLogger, printServerUrls } from './logger';
-import { createServerCloseFn, httpServerStart, openBrowser, resolveHttpServer } from './http';
-import { checkGitRepo } from './check';
-import { setupWebSocket } from './ws';
-import { execCommand } from './shell';
+import { createLogger, printServerUrls } from '../logger/logger';
 
-const alias: Record<string, string | undefined> = {
-  js: 'application/javascript',
-  css: 'text/css',
-  html: 'text/html',
-  json: 'application/json'
-};
+import { customListener } from '../event';
+import { setupWebSocket } from '../ws/ws';
+import { createServerCloseFn, httpServerStart, openBrowser, resolveHttpServer } from './http';
+import { MiddlewaresServer } from './middlewares';
+import { staticPlugin } from './middlewares/static';
+import { baseMiddleware } from './middlewares/base';
+import { errorPlugin } from './middlewares/error';
 
 export const defaultServerConfig: ClownGitServerConfig = {
   rootdir: __dirname,
@@ -30,60 +22,23 @@ export interface ClownGitServerConfig {
 }
 
 export const createServer = async ({ port, host, rootdir } = defaultServerConfig) => {
-  const httpServerOptions: RequestListener = (req, res) => {
-    if (req.url === '/') {
-      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-      const view = readFileSync(join(rootdir, './view/index.html'));
-      res.end(view);
-      return;
-    }
-    const filePath = join(rootdir, '/view/', req.url || '');
-    stat(filePath, (err, stats) => {
-      const type = extname(filePath).replace('.', '');
-      res.writeHead(200, { 'Content-Type': `${alias[type]}; charset=utf-8` });
-      if (err) {
-        res.statusCode = 404;
-        res.end(`404`);
-        return;
-      }
-      if (stats.isFile()) {
-        res.statusCode = 200;
-        createReadStream(filePath).pipe(res);
-      }
-    });
-  };
-
   const logger = createLogger();
 
-  if (!checkGitRepo()) {
-    logger.clearScreen('error');
-    logger.info(`\n${green(`CGIT SERVER V1.0.0`)}`);
-    logger.error('\n    can‘t find git repo');
-    return;
-  }
+  const middlewares = new MiddlewaresServer(rootdir);
 
-  const httpServer = await resolveHttpServer(httpServerOptions);
+  const httpServer = await resolveHttpServer(middlewares.init.bind(middlewares));
+
+  middlewares.use(baseMiddleware(rootdir));
+
+  middlewares.use(staticPlugin);
 
   const wss = setupWebSocket(httpServer);
 
-  wss.on('custom', async (data) => {
-    // eslint-disable-next-line no-restricted-syntax
-    debugger;
-    try {
-      if (data.enent === 'RUN_FLOW') {
-        const actions: Action[] = data.flow.actions;
-        logger.info(`flow => ${data.flow.name}`, { timestamp: true, clear: true });
-        for (let i = 0; i < actions.length; i++) {
-          await execCommand(actions[i].command, actions[i].args);
-          logger.info(`action => ${actions[i].command} ${actions[i].args.join(' ')}`, { timestamp: true });
-        }
-      }
-      if (data.enent === 'clown:create-flow') {
-        const configDir = `${join(rootdir, `.clown/flow/${data.name}.json`)}`;
-        writeJsonFile(configDir, data);
-      }
-    } catch {}
-  });
+  customListener(wss);
+
+  middlewares.use(errorPlugin);
+
+  middlewares.use(staticPlugin);
 
   const closeHttpServer = createServerCloseFn(httpServer);
 

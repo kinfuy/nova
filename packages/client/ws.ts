@@ -69,7 +69,11 @@ function handleMessage(payload: WsPayload, socket: WebSocket) {
     commitStore.setCommits(payload.commits);
     setInterval(() => {
       if (socket.readyState === socket.OPEN) {
-        socket.send('{"type":"ping"}');
+        socket.send(
+          JSON.stringify({
+            type: 'ping'
+          })
+        );
       }
     }, 10000 * 6);
   }

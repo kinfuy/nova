@@ -33,25 +33,17 @@ const ws = useWebSocket();
 const handleClick = (item: Flow) => {
   const event: CustomPayload = {
     type: 'custom',
-    event: 'clown:create-flow',
-    data: {
-      name: item.name,
-      flow: item
-    }
+    event: 'clown:run-flow',
+    data: item
   };
   ws!.send(JSON.stringify(event));
 };
 
 const handleCreate = () => {
-  // eslint-disable-next-line no-restricted-syntax
-  debugger;
   const event: CustomPayload = {
     type: 'custom',
     event: 'clown:create-flow',
-    data: {
-      name: flows.value[0].name,
-      flow: flows.value[0]
-    }
+    data: flows.value[0]
   };
   ws!.send(JSON.stringify(event));
 };

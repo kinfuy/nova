@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { cac } from 'cac';
-import { createServer } from '@clown/core';
+import { createServer, installFlow, runFlow } from '@clown/core';
 import pkg from '../package.json';
 const cli = cac('clown');
 
@@ -21,19 +21,22 @@ cli
   .command('config', 'start config server')
   .option('--port <port>', `[number] specify port`)
   .action(async (options: any) => {
-    console.log(options);
     const server = await createServer(Object.assign(defaultServerConfig, options));
     if (!server) return;
     await server.listen();
   });
 
 cli
-  .command('[flow]', 'start dev server')
-  .alias('f')
-  .action(async (flow: string, options: any) => {
-    console.log(flow);
-    console.log(options);
+  .command('install ', 'install flow')
+  .option('--flow <flow>', `[number] specify port`)
+  .alias('i')
+  .action(async (flow: string) => {
+    await installFlow(flow);
   });
+
+cli.command('[flow]', 'run flow').action(async (flow: string) => {
+  await runFlow(flow);
+});
 
 cli.help();
 cli.version(`v${pkg.version}`);

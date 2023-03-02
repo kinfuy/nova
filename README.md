@@ -2,19 +2,24 @@
 
 打造超级个人工作 cli 工作站,重新定义 cli 工具
 
-### Features
+## feture
 
-#### core 核心库
+### core 核心库
 
-- 通用 cli 能力
 - 提供 shell 执行能力
 - 提供插件机制，应用商店
 - 提供容器化机制
 
-#### 插件库
+### 插件库
 
-- Git git 能力
-- Flow 工作流编排能力
+#### Git git 能力
+
+#### Flow 工作流编排能力
+
+- sleep 函数
+- 变量支持
+- 缓存 action 执行结果
+- 全局上下文
 
 ### Getting Started
 

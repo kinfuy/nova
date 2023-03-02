@@ -1,6 +1,6 @@
 import { statSync } from 'node:fs';
 import { join } from 'node:path';
-import { execCommand } from './shell';
+import { execCommand } from '../utils/shell';
 
 export const checkGitRepo = (): Boolean => {
   try {

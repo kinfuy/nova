@@ -2,8 +2,8 @@ import type { Server } from 'node:http';
 import type { WebSocket as WebSocketRaw } from 'ws';
 import { WebSocketServer as WebSocketServerRaw } from 'ws';
 import type { ClownPayload, CustomPayload, InferCustomEventPayload } from '@clown/types';
-import type { CommitOrdering } from './middlewares/git';
-import { getGitCommits } from './middlewares/git';
+import type { CommitOrdering } from '../server/middlewares/git';
+import { getGitCommits } from '../server/middlewares/git';
 
 export interface WebSocketClient {
   /**
@@ -61,8 +61,6 @@ export const setupWebSocket = (server: Server): WebSocketServer => {
 
   wss.on('connection', async (socket) => {
     socket.on('message', async (raw) => {
-      // eslint-disable-next-line no-restricted-syntax
-      debugger;
       if (!customListeners.size) return;
       let parsed: any;
       try {
@@ -111,8 +109,6 @@ export const setupWebSocket = (server: Server): WebSocketServer => {
 
   return {
     on: ((event: string, fn: () => void) => {
-      // eslint-disable-next-line no-restricted-syntax
-      debugger;
       if (wsServerEvents.includes(event)) wss.on(event, fn);
       else {
         if (!customListeners.has(event)) {

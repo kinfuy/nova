@@ -1,14 +1,14 @@
 import type * as net from 'node:net';
-import type * as http from 'node:http';
 import { exec } from 'child_process';
-import type { Logger } from './logger';
+import type { Server } from 'node:http';
+import type { Logger } from '../logger/logger';
 
-export const resolveHttpServer = async (app: http.RequestListener) => {
+export const resolveHttpServer = async (app: any) => {
   const { createServer } = await import('node:http');
   return createServer(app);
 };
 
-export const createServerCloseFn = (server: http.Server | null) => {
+export const createServerCloseFn = (server: Server | null) => {
   if (!server) {
     return () => {};
   }

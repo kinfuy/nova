@@ -1,4 +1,4 @@
-import { execCommand } from '../shell';
+import { execCommand } from '../../utils/shell';
 
 const GIT_LOG_SEPARATOR = '|';
 
