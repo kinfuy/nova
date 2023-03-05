@@ -1,13 +1,13 @@
-import type { Flow } from '@clown/types/dist';
+import type { Flow } from '@sugar/types';
 import { createFlow, runFlow } from '../flow';
 import type { WebSocketServer } from '../ws/ws';
 
 export const customListener = (wss: WebSocketServer) => {
-  wss.on('clown:create-flow', async (flow: Flow) => {
+  wss.on('sugar:create-flow', async (flow: Flow) => {
     await createFlow(flow);
   });
 
-  wss.on('clown:run-flow', async (flow: Flow) => {
+  wss.on('sugar:run-flow', async (flow: Flow) => {
     await runFlow(flow.alias);
   });
 };

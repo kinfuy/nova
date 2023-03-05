@@ -1,4 +1,4 @@
-import type { Flow } from '@clown/types';
+import type { Flow } from '@sugar/types';
 
 export const flows: Flow[] = [
   {

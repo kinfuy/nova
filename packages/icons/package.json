@@ -1,7 +1,7 @@
 {
-  "name": "@clown/icons",
+  "name": "@sugar/icons",
   "version": "0.0.1",
-  "description": "@clown/icons svg-icon lib",
+  "description": "@sugar/icons svg-icon lib",
   "author": "kinfuy",
   "license": "MIT",
   "main": "dist/lib/index.js",

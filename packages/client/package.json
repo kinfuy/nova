@@ -1,19 +1,19 @@
 {
-  "name": "@clown/client",
+  "name": "@sugar/client",
   "version": "0.0.1",
   "scripts": {
     "dev": "vite --mode dev",
     "build": "vite build"
   },
   "dependencies": {
-    "@clown/icons": "workspace:*",
+    "@sugar/icons": "workspace:*",
     "pinia": "^2.0.30",
     "pinia-plugin-persistedstate": "^3.0.2",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
-    "@clown/types": "workspace:*",
+    "@sugar/types": "workspace:*",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vitejs/plugin-vue-jsx": "^3.0.0",
     "less": "^4.1.3",

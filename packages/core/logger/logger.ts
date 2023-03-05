@@ -51,7 +51,7 @@ let sameCount = 0;
 
 export const createLogger = (level: LogLevel = 'info', options: LoggerOptions = {}): Logger => {
   const loggedErrors = new WeakSet<Error | RollupError>();
-  const { prefix = '[clown]', allowClearScreen = true } = options;
+  const { prefix = '[sugar]', allowClearScreen = true } = options;
   const thresh = LogLevels[level];
   const canClearScreen = allowClearScreen && process.stdout.isTTY && !process.env.CI;
   const clear = canClearScreen ? clearScreen : () => {};

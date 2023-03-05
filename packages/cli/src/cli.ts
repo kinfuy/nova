@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 import { cac } from 'cac';
-import { createServer, installFlow, runFlow } from '@clown/core';
+import { createServer, installFlow, runFlow } from '@sugar/core';
 import pkg from '../package.json';
-const cli = cac('clown');
+const cli = cac('sugar');
 
 export const defaultServerConfig = {
   rootdir: __dirname,

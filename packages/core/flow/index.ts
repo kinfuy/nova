@@ -1,5 +1,5 @@
 import { join } from 'path';
-import type { Action, Flow, FlowContent, ParamsAction, ShellAction } from '@clown/types';
+import type { Action, Flow, FlowContent, ParamsAction, ShellAction } from '@sugar/types';
 import { confirm, intro, multiselect, outro, select, spinner, text } from '@clack/prompts';
 import { green } from 'kolorist';
 import { loadJsonFile, writeJsonFile } from '../fs/load';

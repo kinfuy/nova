@@ -1,1 +1,1 @@
-## @clown/icons
+## @sugar/icons

@@ -1,5 +1,5 @@
 {
-  "name": "@clown/types",
+  "name": "@sugar/types",
   "version": "0.0.1",
   "types": "dist",
   "scripts": {

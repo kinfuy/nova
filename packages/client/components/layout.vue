@@ -1,9 +1,9 @@
 <template>
-  <div class="clown-layout">
+  <div class="sugar-layout">
     <div class="layout-silder">
       <div class="silder-logo">
         <img src="../assets/favicon.png" alt="logo" />
-        <span style="margin-left: 5px">Clown</span>
+        <span style="margin-left: 5px">sugar</span>
       </div>
       <div
         v-for="item in menuOptions"
@@ -30,7 +30,7 @@
 <script lang="ts" setup>
 import { markRaw, ref, watchEffect } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { IconCloudshell, IconGraph, IconShangpu, IconShezhi } from '@clown/icons';
+import { IconCloudshell, IconGraph, IconShangpu, IconShezhi } from '@sugar/icons';
 import Icon from '../components/Icon/index.vue';
 
 interface Menu {
@@ -80,7 +80,7 @@ const handleClick = (item: Menu) => {
 
 <style lang="less" scoped>
 @import '../styles/var.less';
-.clown-layout {
+.sugar-layout {
   width: 100%;
   display: flex;
   .layout-silder {

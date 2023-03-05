@@ -1,4 +1,4 @@
-import type { Action, Flow } from '@clown/types';
+import type { Action, Flow } from '@sugar/types';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 

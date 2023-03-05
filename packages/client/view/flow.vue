@@ -1,6 +1,6 @@
 <template>
-  <div class="clown-flow-create" @click="handleCreate">新建</div>
-  <div class="clown-flow">
+  <div class="sugar-flow-create" @click="handleCreate">新建</div>
+  <div class="sugar-flow">
     <div v-for="item in flows" :key="item.name" class="flow-card">
       <div class="crad-header">
         <div class="card-title">{{ item.name }}</div>
@@ -21,8 +21,8 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
-import type { CustomPayload, Flow } from '@clown/types';
-import { IconBofang } from '@clown/icons';
+import type { CustomPayload, Flow } from '@sugar/types';
+import { IconBofang } from '@sugar/icons';
 import Icon from '../components/Icon/index.vue';
 import { useWebSocket } from '../hooks/useWebSocket';
 import { useFlow } from '../store/useFlow';
@@ -33,7 +33,7 @@ const ws = useWebSocket();
 const handleClick = (item: Flow) => {
   const event: CustomPayload = {
     type: 'custom',
-    event: 'clown:run-flow',
+    event: 'sugar:run-flow',
     data: item
   };
   ws!.send(JSON.stringify(event));
@@ -42,7 +42,7 @@ const handleClick = (item: Flow) => {
 const handleCreate = () => {
   const event: CustomPayload = {
     type: 'custom',
-    event: 'clown:create-flow',
+    event: 'sugar:create-flow',
     data: flows.value[0]
   };
   ws!.send(JSON.stringify(event));
@@ -51,11 +51,11 @@ const handleCreate = () => {
 
 <style lang="less" scoped>
 @import '../styles/var.less';
-.clown-flow-create {
+.sugar-flow-create {
   padding: 30px 10px 10px;
   cursor: pointer;
 }
-.clown-flow {
+.sugar-flow {
   padding: 10px;
   display: flex;
   flex-wrap: wrap;

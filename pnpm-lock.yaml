@@ -44,8 +44,8 @@ importers:
 
   packages/cli:
     specifiers:
-      '@clown/core': workspace:*
-      '@clown/types': workspace:*
+      '@sugar/core': workspace:*
+      '@sugar/types': workspace:*
       '@types/node': ^18.11.9
       '@types/prompts': ^2.0.14
       '@types/ws': ^8.5.4
@@ -56,14 +56,14 @@ importers:
       tsup: 6.6.3
       ws: ^8.12.0
     dependencies:
-      '@clown/core': link:../core
+      '@sugar/core': link:../core
       cac: 6.7.14
       execa: 5.0.1
       kolorist: 1.7.0
       prompts: 2.4.2
       ws: 8.12.0
     devDependencies:
-      '@clown/types': link:../types
+      '@sugar/types': link:../types
       '@types/node': 18.14.1
       '@types/prompts': 2.4.2
       '@types/ws': 8.5.4
@@ -71,8 +71,8 @@ importers:
 
   packages/client:
     specifiers:
-      '@clown/icons': workspace:*
-      '@clown/types': workspace:*
+      '@sugar/icons': workspace:*
+      '@sugar/types': workspace:*
       '@vitejs/plugin-vue': ^4.0.0
       '@vitejs/plugin-vue-jsx': ^3.0.0
       less: ^4.1.3
@@ -84,13 +84,13 @@ importers:
       vue-router: ^4.1.6
       vue-tsc: ^1.0.24
     dependencies:
-      '@clown/icons': link:../icons
+      '@sugar/icons': link:../icons
       pinia: 2.0.30_hmuptsblhheur2tugfgucj7gc4
       pinia-plugin-persistedstate: 3.0.2_pinia@2.0.30
       vue: 3.2.47
       vue-router: 4.1.6_vue@3.2.47
     devDependencies:
-      '@clown/types': link:../types
+      '@sugar/types': link:../types
       '@vitejs/plugin-vue': 4.0.0_vite@4.1.1+vue@3.2.47
       '@vitejs/plugin-vue-jsx': 3.0.0_vite@4.1.1+vue@3.2.47
       less: 4.1.3
@@ -101,19 +101,19 @@ importers:
   packages/core:
     specifiers:
       '@clack/prompts': ^0.6.1
-      '@clown/types': workspace:*
+      '@sugar/types': workspace:*
       '@types/node': ^18.11.9
       execa: ^5.0.1
       kolorist: ^1.5.1
       tsup: 6.6.3
       ws: ^8.12.0
     dependencies:
+      '@clack/prompts': 0.6.1
       execa: 5.1.1
       kolorist: 1.7.0
       ws: 8.12.0
     devDependencies:
-      '@clack/prompts': 0.6.1
-      '@clown/types': link:../types
+      '@sugar/types': link:../types
       '@types/node': 18.14.1
       tsup: 6.6.3
 
@@ -674,7 +674,7 @@ packages:
     dependencies:
       picocolors: 1.0.0
       sisteransi: 1.0.5
-    dev: true
+    dev: false
 
   /@clack/prompts/0.6.1:
     resolution: {integrity: sha512-7KuMST/5zB7KpvfR00kcnbOaXmfN6tkJmkLpAyV2Iv2SJ7oxFbhNFvR5OQJynSKDhU8oOp/eFMK6Q0k/DXsq8A==}
@@ -682,7 +682,7 @@ packages:
       '@clack/core': 0.3.0
       picocolors: 1.0.0
       sisteransi: 1.0.5
-    dev: true
+    dev: false
     bundledDependencies:
       - is-unicode-supported
 

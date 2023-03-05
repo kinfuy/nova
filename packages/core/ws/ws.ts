@@ -1,7 +1,7 @@
 import type { Server } from 'node:http';
 import type { WebSocket as WebSocketRaw } from 'ws';
 import { WebSocketServer as WebSocketServerRaw } from 'ws';
-import type { ClownPayload, CustomPayload, InferCustomEventPayload } from '@clown/types';
+import type { CustomPayload, InferCustomEventPayload, sugarPayload } from '@sugar/types';
 import type { CommitOrdering } from '../server/middlewares/git';
 import { getGitCommits } from '../server/middlewares/git';
 
@@ -9,7 +9,7 @@ export interface WebSocketClient {
   /**
    * Send event to the client
    */
-  send(payload: ClownPayload): void;
+  send(payload: sugarPayload): void;
   /**
    * Send custom event
    */
@@ -130,7 +130,7 @@ export const setupWebSocket = (server: Server): WebSocketServer => {
     },
 
     send(...args: any[]) {
-      let payload: ClownPayload;
+      let payload: sugarPayload;
       if (typeof args[0] === 'string') {
         payload = {
           type: 'custom',

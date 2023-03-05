@@ -31,7 +31,7 @@ export interface command {
 }
 
 export const setupWebSocket = (protocol: string, hostAndPath: string, onCloseWithoutOpen?: () => void): WebSocket => {
-  const socket = new WebSocket(`${protocol}://${hostAndPath}`, 'clown');
+  const socket = new WebSocket(`${protocol}://${hostAndPath}`, 'sugar');
   let isOpened = false;
 
   socket.addEventListener(
@@ -56,7 +56,7 @@ export const setupWebSocket = (protocol: string, hostAndPath: string, onCloseWit
       return;
     }
 
-    console.log(`[clown] server connection lost. polling for restart...`);
+    console.log(`[sugar] server connection lost. polling for restart...`);
     location.reload();
   });
 

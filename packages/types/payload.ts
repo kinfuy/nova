@@ -1,4 +1,4 @@
-export type ClownPayload = ConnectedPayload | FullReloadPayload | CustomPayload | ErrorPayload;
+export type sugarPayload = ConnectedPayload | FullReloadPayload | CustomPayload | ErrorPayload;
 
 export interface ConnectedPayload {
   type: 'connected';
