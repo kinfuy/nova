@@ -27,7 +27,6 @@
   "devDependencies": {
     "@sugar/types": "workspace:*",
     "@types/node": "^18.11.9",
-    "@types/prompts": "^2.0.14",
     "@types/ws": "^8.5.4",
     "tsup": "6.6.3"
   }

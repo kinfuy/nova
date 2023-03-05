@@ -30,8 +30,8 @@ cli
   .command('install ', 'install flow')
   .option('--flow <flow>', `[number] specify port`)
   .alias('i')
-  .action(async (flow: string) => {
-    await installFlow(flow);
+  .action(async (options: any) => {
+    await installFlow(options.flow);
   });
 
 cli.command('[flow]', 'run flow').action(async (flow: string) => {

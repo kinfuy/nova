@@ -108,20 +108,22 @@ export const runFlow = async (flow: string) => {
   }
 };
 
-export const installFlow = async () => {
+export const installFlow = async (name?: string) => {
   logger.clearScreen('error');
   intro(`flow: insatll`);
   const startTime = new Date().getTime();
-  for (let i = 0; i < flows.length; i++) {
-    const s = spinner();
-    s.start(`install ${flows[i].name}`);
-    await writeJsonFile(join(STORE_ROOT, `flows/${flows[i].alias}.json`), flows[i]).catch((err) => {
-      logger.error(err);
-    });
-    s.stop(`${flows[i].name} install success`);
+  if (!name) {
+    for (let i = 0; i < flows.length; i++) {
+      const s = spinner();
+      s.start(`install ${flows[i].name}`);
+      await writeJsonFile(join(STORE_ROOT, `flows/${flows[i].alias}.json`), flows[i]).catch((err) => {
+        logger.error(err);
+      });
+      s.stop(`${flows[i].name} install success`);
+    }
+    const endTime = new Date().getTime() - startTime;
+    outro(`flow success ${green(`【${Math.floor(endTime / 1000)}ms】`)}`);
   }
-  const endTime = new Date().getTime() - startTime;
-  outro(`flow success ${green(`【${Math.floor(endTime / 1000)}ms】`)}`);
 };
 
 export const createFlow = async (flow: Flow) => {

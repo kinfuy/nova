@@ -21,7 +21,23 @@ export const flows: Flow[] = [
       {
         type: 'shell',
         command: 'git',
-        args: ['push', 'origin', 'master']
+        args: ['rev-parse', '--abbrev-ref', 'HEAD'],
+        catch: 'branch'
+      },
+      {
+        type: 'shell',
+        command: 'git',
+        args: (ctx) => {
+          return ['config', '--get', `branch.${ctx.var.branch}.remote`];
+        },
+        catch: 'remote'
+      },
+      {
+        type: 'shell',
+        command: 'git',
+        args: (ctx) => {
+          return ['push', ctx.var.remote, ctx.var.branch];
+        }
       }
     ]
   },
