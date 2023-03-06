@@ -38,8 +38,6 @@ export const createServer = async ({ port, host, rootdir } = defaultServerConfig
 
   middlewares.use(errorPlugin);
 
-  middlewares.use(staticPlugin);
-
   const closeHttpServer = createServerCloseFn(httpServer);
 
   const printStart = (port: number) => {
