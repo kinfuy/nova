@@ -26,14 +26,15 @@ export const getArgs = (args: string[] | ((ctx: FlowContent) => string[]), ctx?:
 
 export const runFlow = async (flowName: string) => {
   if (!flowName) {
-    logger.warn('need flow name!');
+    logger.warn('need a flow name');
+    return;
   }
 
   const flow = await loadJsonFile<Flow>(join(STORE_ROOT, `flows/${flowName}.json`)).catch(() => {
-    logger.error('not found flow');
+    logger.error(`${flowName} is not a flow`);
   });
   if (!flow) {
-    logger.error('not found flow');
+    logger.error(`${flowName} is not a flow`);
     return;
   }
 

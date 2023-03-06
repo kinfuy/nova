@@ -42,8 +42,8 @@ export const createServer = async ({ port, host, rootdir } = defaultServerConfig
 
   const printStart = (port: number) => {
     logger.clearScreen('error');
-    logger.info(`\n${green(`CGIT SERVER V1.0.0`)}\n`);
-    printServerUrls(`http://${host}:${port}`, logger.info);
+    console.log(`\n${green(`CGIT SERVER V1.0.0`)}\n`);
+    printServerUrls(`http://${host}:${port}`);
   };
 
   const server = {

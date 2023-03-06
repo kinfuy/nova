@@ -59,12 +59,12 @@ export const createLogger = (level: LogLevel = 'info', options: LoggerOptions = 
   function output(type: LogType, msg: string, options: LogErrorOptions = {}) {
     if (thresh >= LogLevels[type]) {
       const method = type === 'info' ? 'log' : type;
+      const tag = type === 'info' ? cyan(bold(prefix)) : type === 'warn' ? yellow(bold(prefix)) : red(bold(prefix));
       const format = () => {
         if (options.timestamp) {
-          const tag = type === 'info' ? cyan(bold(prefix)) : type === 'warn' ? yellow(bold(prefix)) : red(bold(prefix));
           return `${dim(new Date().toLocaleTimeString())} ${tag} ${msg}`;
         } else {
-          return msg;
+          return `${tag} ${msg}`;
         }
       };
       if (options.error) {
@@ -123,7 +123,7 @@ export const createLogger = (level: LogLevel = 'info', options: LoggerOptions = 
   return logger;
 };
 
-export function printServerUrls(url: string, info: Logger['info']): void {
+export function printServerUrls(url: string): void {
   const colorUrl = (url: string) => cyan(url.replace(/:(\d+)\//, (_, port) => `:${bold(port)}/`));
-  info(`  ${green('➜')}  ${bold('Local')}:   ${colorUrl(url)}`);
+  console.log(`  ${green('➜')}  ${bold('Local')}:   ${colorUrl(url)}`);
 }
