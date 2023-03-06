@@ -24,87 +24,88 @@ export const getArgs = (args: string[] | ((ctx: FlowContent) => string[]), ctx?:
   return args;
 };
 
-export const runFlow = async (flow: string) => {
-  if (!flow) {
+export const runFlow = async (flowName: string) => {
+  if (!flowName) {
     logger.warn('need flow name!');
   }
-  logger.clearScreen('error');
-  const _flow = await loadJsonFile<Flow>(join(STORE_ROOT, `flows/${flow}.json`)).catch(() => {
+
+  const flow = await loadJsonFile<Flow>(join(STORE_ROOT, `flows/${flowName}.json`)).catch(() => {
     logger.error('not found flow');
   });
+  if (!flow) {
+    logger.error('not found flow');
+    return;
+  }
+
+  logger.clearScreen('error');
 
   function setContent(type: string, obj: object) {
-    if (!_flow) return;
+    if (!flow) return;
     if (type === 'var') {
-      if (_flow.content) {
-        Object.assign(_flow.content.var, obj);
+      if (flow.content) {
+        Object.assign(flow.content.var, obj);
       } else {
-        _flow.content = {
+        flow.content = {
           var: obj
         };
       }
     }
   }
-  if (flow) {
-    // eslint-disable-next-line no-restricted-syntax
-    debugger;
-    if (_flow?.alias === flow) {
-      intro(`flow: run ${_flow.name}`);
-      const startTime = new Date().getTime();
-      for (let i = 0; i < _flow.actions.length; i++) {
-        const s = spinner();
-        const action = _flow.actions[i];
-        if (isShellAction(action)) {
-          s.start(`action: ${action.command} ${getArgs(action.args, _flow.content).join(' ')}`);
-          if (action.before) action.before(_flow.content || { var: {} });
-          const rst = await execCommand(action.command, getArgs(action.args, _flow.content)).finally(() => {
-            s.stop(`action: ${action.command} ${getArgs(action.args, _flow.content).join(' ')}`);
-          });
-          if (action.catch) {
-            const value = action.transform ? action.transform(rst) : rst;
 
-            setContent('var', {
-              [action.catch]: value
-            });
-          }
-          if (action.after) action.after(_flow.content || { var: {} });
-        }
-        if (isParamsAction(action)) {
-          if (action.before) action.before(_flow.content || { var: {} });
-          let value;
-          if (action.params.type === 'input') {
-            value = await text({
-              message: action.params.message
-            });
-          }
-          if (action.params.type === 'confirm') {
-            value = await confirm({
-              message: action.params.message
-            });
-          }
-          if (action.params.type === 'select') {
-            value = await select({
-              message: action.params.message,
-              options: action.params.options
-            });
-          }
-          if (action.params.type === 'multiselect') {
-            value = await multiselect({
-              message: action.params.message,
-              options: action.params.options
-            });
-          }
+  if (flow.alias === flowName) {
+    intro(`flow: run ${flow.name}`);
+    const startTime = new Date().getTime();
+    for (let i = 0; i < flow.actions.length; i++) {
+      const s = spinner();
+      const action = flow.actions[i];
+      if (isShellAction(action)) {
+        s.start(`action: ${action.command} ${getArgs(action.args, flow.content).join(' ')}`);
+        if (action.before) action.before(flow.content || { var: {} });
+        const rst = await execCommand(action.command, getArgs(action.args, flow.content)).finally(() => {
+          s.stop(`action: ${action.command} ${getArgs(action.args, flow.content).join(' ')}`);
+        });
+        if (action.catch) {
+          const value = action.transform ? action.transform(rst) : rst;
+
           setContent('var', {
-            [action.name]: value
+            [action.catch]: value
           });
-          if (action.after) action.after(_flow.content || { var: {} });
         }
+        if (action.after) action.after(flow.content || { var: {} });
       }
-      const endTime = new Date().getTime() - startTime;
-      outro(`flow success ${green(`【${Math.floor(endTime / 1000)}ms】`)}`);
+      if (isParamsAction(action)) {
+        if (action.before) action.before(flow.content || { var: {} });
+        let value;
+        if (action.params.type === 'input') {
+          value = await text({
+            message: action.params.message
+          });
+        }
+        if (action.params.type === 'confirm') {
+          value = await confirm({
+            message: action.params.message
+          });
+        }
+        if (action.params.type === 'select') {
+          value = await select({
+            message: action.params.message,
+            options: action.params.options
+          });
+        }
+        if (action.params.type === 'multiselect') {
+          value = await multiselect({
+            message: action.params.message,
+            options: action.params.options
+          });
+        }
+        setContent('var', {
+          [action.name]: value
+        });
+        if (action.after) action.after(flow.content || { var: {} });
+      }
     }
-  } else {
-    logger.error('not found flow');
+    const endTime = new Date().getTime() - startTime;
+    outro(`flow success ${green(`【${Math.floor(endTime / 1000)}ms】`)}`);
   }
 };
 
