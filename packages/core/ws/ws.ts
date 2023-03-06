@@ -2,8 +2,6 @@ import type { Server } from 'node:http';
 import type { WebSocket as WebSocketRaw } from 'ws';
 import { WebSocketServer as WebSocketServerRaw } from 'ws';
 import type { CustomPayload, InferCustomEventPayload, sugarPayload } from '@sugar/types';
-import type { CommitOrdering } from '../server/middlewares/git';
-import { getGitCommits } from '../server/middlewares/git';
 
 export interface WebSocketClient {
   /**
@@ -72,9 +70,7 @@ export const setupWebSocket = (server: Server): WebSocketServer => {
       const client = getSocketClient(socket);
       listeners.forEach((listener) => listener(parsed.data, client));
     });
-    const commits = await getGitCommits(null, 100, true, true, ['origin'], [], true, true, 'date' as CommitOrdering);
-
-    socket.send(JSON.stringify({ type: 'connected', commits }));
+    socket.send(JSON.stringify({ type: 'connected' }));
   });
 
   wss.on('error', (e: Error & { code: string }) => {
@@ -130,6 +126,8 @@ export const setupWebSocket = (server: Server): WebSocketServer => {
     },
 
     send(...args: any[]) {
+      // eslint-disable-next-line no-restricted-syntax
+      debugger;
       let payload: sugarPayload;
       if (typeof args[0] === 'string') {
         payload = {

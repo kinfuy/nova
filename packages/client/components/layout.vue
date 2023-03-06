@@ -131,6 +131,7 @@ const handleClick = (item: Menu) => {
   }
   .layout-content {
     width: calc(100% - 260px);
+    height: 100vh;
     flex: 0 0 auto;
   }
 }

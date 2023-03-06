@@ -2,42 +2,10 @@ import type { Action, Flow } from '@sugar/types';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
-const defaultFlow: Flow[] = [
-  {
-    name: 'fix-detail',
-    alias: 'fd',
-    desc: '常规fix detail commit',
-    actions: [
-      {
-        command: 'git',
-        args: ['add', '.']
-      },
-      {
-        command: 'git',
-        args: ['commit', '-m', 'fix: detail']
-      }
-    ]
-  },
-  {
-    name: 'chore-build',
-    alias: 'fb',
-    desc: '常规build commit',
-    actions: [
-      {
-        command: 'git',
-        args: ['add', '.']
-      },
-      {
-        command: 'git',
-        args: ['commit', '-m', 'chore: build']
-      }
-    ]
-  }
-];
 export const useFlow = defineStore(
   'flow',
   () => {
-    const flows = ref<Flow[]>(defaultFlow);
+    const flows = ref<Flow[]>([]);
     function setFlow(val: Flow[]) {
       flows.value = val;
     }

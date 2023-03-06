@@ -1,10 +1,19 @@
 import { useCommit } from './store/useCommit';
+import { useFlow } from './store/useFlow';
 
-export type WsPayload = ConnectedPayload | CommandPayload | FullReloadPayload | ErrorPayload | PingPayload;
+export type WsPayload = ConnectedPayload | CustomPayload | CommandPayload | FullReloadPayload | ErrorPayload | PingPayload;
 
 export interface ConnectedPayload {
   type: 'connected';
-  commits: any;
+}
+
+export type CustomEventType = 'sugar:commits' | 'sugar:flows';
+export interface CustomPayload {
+  type: 'custom';
+  data: {
+    event: CustomEventType;
+    data: any;
+  };
 }
 
 export interface CommandPayload {
@@ -65,16 +74,32 @@ export const setupWebSocket = (protocol: string, hostAndPath: string, onCloseWit
 
 function handleMessage(payload: WsPayload, socket: WebSocket) {
   if (payload.type === 'connected') {
-    const commitStore = useCommit();
-    commitStore.setCommits(payload.commits);
-    setInterval(() => {
-      if (socket.readyState === socket.OPEN) {
-        socket.send(
-          JSON.stringify({
-            type: 'ping'
-          })
-        );
-      }
-    }, 10000 * 6);
+    ping(socket);
   }
+  if (payload.type === 'custom') {
+    CustomEventListen(payload.data);
+  }
+}
+
+function CustomEventListen(data: { event: CustomEventType; data: any }) {
+  if (data.event === 'sugar:commits') {
+    const commitStore = useCommit();
+    commitStore.setCommits(data.data.commits);
+  }
+  if (data.event === 'sugar:flows') {
+    const flow = useFlow();
+    flow.setFlow(data.data.flows);
+  }
+}
+
+function ping(socket: WebSocket) {
+  setInterval(() => {
+    if (socket.readyState === socket.OPEN) {
+      socket.send(
+        JSON.stringify({
+          type: 'ping'
+        })
+      );
+    }
+  }, 10000 * 6);
 }
