@@ -106,7 +106,7 @@ export const runFlow = async (flowName: string) => {
       }
     }
     const time = performance.now() - startTime;
-    outro(`flow success ${green(`【${time}ms】`)}`);
+    outro(`flow success ${green(`【${Math.floor(time)}ms】`)}`);
   }
 };
 
@@ -124,7 +124,7 @@ export const installFlow = async (name?: string) => {
       s.stop(`${flows[i].name} install success`);
     }
     const time = performance.now() - startTime;
-    outro(`flow success ${green(`【${time}ms】`)}`);
+    outro(`flow success ${green(`【${Math.floor(time)}ms】`)}`);
   }
 };
 
@@ -139,5 +139,5 @@ export const createFlow = async (flow: Flow) => {
   });
   s.stop('flow create success');
   const time = performance.now() - startTime;
-  outro(`flow success ${green(`【${time}ms】`)}`);
+  outro(`flow success ${green(`【${Math.floor(time)}ms】`)}`);
 };
