@@ -2,6 +2,7 @@ import type { Server } from 'node:http';
 import type { WebSocket as WebSocketRaw } from 'ws';
 import { WebSocketServer as WebSocketServerRaw } from 'ws';
 import type { CustomPayload, InferCustomEventPayload, sugarPayload } from '@sugar/types';
+import { jsonStringify } from '../utils/json';
 
 export interface WebSocketClient {
   /**
@@ -59,6 +60,8 @@ export const setupWebSocket = (server: Server): WebSocketServer => {
 
   wss.on('connection', async (socket) => {
     socket.on('message', async (raw) => {
+      // eslint-disable-next-line no-restricted-syntax
+      debugger;
       if (!customListeners.size) return;
       let parsed: any;
       try {
@@ -144,7 +147,7 @@ export const setupWebSocket = (server: Server): WebSocketServer => {
         return;
       }
 
-      const stringified = JSON.stringify(payload);
+      const stringified = jsonStringify(payload);
       wss.clients.forEach((client) => {
         // readyState 1 means the connection is open
         if (client.readyState === 1) {

@@ -1,3 +1,4 @@
+import { jsonParse } from './utils/json';
 import { useCommit } from './store/useCommit';
 import { useFlow } from './store/useFlow';
 
@@ -10,10 +11,8 @@ export interface ConnectedPayload {
 export type CustomEventType = 'sugar:commits' | 'sugar:flows';
 export interface CustomPayload {
   type: 'custom';
-  data: {
-    event: CustomEventType;
-    data: any;
-  };
+  event: CustomEventType;
+  data: any;
 }
 
 export interface CommandPayload {
@@ -73,22 +72,24 @@ export const setupWebSocket = (protocol: string, hostAndPath: string, onCloseWit
 };
 
 function handleMessage(payload: WsPayload, socket: WebSocket) {
+  // eslint-disable-next-line no-restricted-syntax
+  debugger;
   if (payload.type === 'connected') {
     ping(socket);
   }
   if (payload.type === 'custom') {
-    CustomEventListen(payload.data);
+    CustomEventListen(payload);
   }
 }
 
 function CustomEventListen(data: { event: CustomEventType; data: any }) {
   if (data.event === 'sugar:commits') {
     const commitStore = useCommit();
-    commitStore.setCommits(data.data.commits);
+    commitStore.setCommits(jsonParse(data.data));
   }
   if (data.event === 'sugar:flows') {
     const flow = useFlow();
-    flow.setFlow(data.data.flows);
+    flow.setFlow(jsonParse(data.data));
   }
 }
 

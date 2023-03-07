@@ -8,16 +8,22 @@
 
 <script setup lang="ts">
 import type { CustomPayload } from '@sugar/types';
+import { nextTick, onMounted } from 'vue';
 import { useWebSocket } from '../hooks/useWebSocket';
 import { useCommit } from '../store/useCommit';
-
-const commitStore = useCommit();
 const ws = useWebSocket();
-const event: CustomPayload = {
-  type: 'custom',
-  event: 'sugar-client:get-commits'
-};
-ws!.send(JSON.stringify(event));
+const commitStore = useCommit();
+onMounted(() => {
+  const event: CustomPayload = {
+    type: 'custom',
+    event: 'sugar-client:get-commits'
+  };
+  nextTick(() => {
+    if (ws && ws.readyState === 1) {
+      ws.send(JSON.stringify(event));
+    }
+  });
+});
 </script>
 
 <style lang="less" scoped>

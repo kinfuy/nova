@@ -7,18 +7,18 @@ import { jsonStringify } from '../utils/json';
 import type { WebSocketServer } from '../ws/ws';
 
 export const customListener = (wss: WebSocketServer) => {
-  wss.on('suger-client:create-flow', async (flow: Flow) => {
+  wss.on('sugar-client:create-flow', async (flow: Flow) => {
     await createFlow(flow);
   });
 
-  wss.on('suger-client:run-flow', async (flow: Flow) => {
+  wss.on('sugar-client:run-flow', async (flow: Flow) => {
     await runFlow(flow.alias);
   });
-  wss.on('suger-client:get-commits', async () => {
+  wss.on('sugar-client:get-commits', async () => {
     const commits = await getGitCommits(null, 100, true, true, ['origin'], [], true, true, 'date' as CommitOrdering);
-    wss.send('suger:commits', JSON.stringify({ type: 'coustom', commits }));
+    wss.send('sugar:commits', JSON.stringify(commits));
   });
-  wss.on('suger-client:get-flows', async () => {
-    wss.send('suger:flows', jsonStringify({ type: 'coustom', flows }));
+  wss.on('sugar-client:get-flows', async () => {
+    wss.send('sugar:flows', jsonStringify(flows));
   });
 };

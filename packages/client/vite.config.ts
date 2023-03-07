@@ -7,7 +7,8 @@ export default defineConfig({
     __VUE_PROD_DEVTOOLS__: true
   },
   build: {
-    outDir: '../cli/dist/view'
+    outDir: '../cli/dist/view',
+    sourcemap: true
     // watch: {
     //   include: './package/client/**'
     // }
