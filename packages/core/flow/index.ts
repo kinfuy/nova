@@ -55,7 +55,7 @@ export const runFlow = async (flowName: string) => {
 
   if (flow.alias === flowName) {
     intro(`flow: run ${flow.name}`);
-    const startTime = new Date().getTime();
+    const startTime = performance.now();
     for (let i = 0; i < flow.actions.length; i++) {
       const s = spinner();
       const action = flow.actions[i];
@@ -105,15 +105,15 @@ export const runFlow = async (flowName: string) => {
         if (action.after) action.after(flow.content || { var: {} });
       }
     }
-    const endTime = new Date().getTime() - startTime;
-    outro(`flow success ${green(`【${Math.floor(endTime / 1000)}ms】`)}`);
+    const time = performance.now() - startTime;
+    outro(`flow success ${green(`【${time}ms】`)}`);
   }
 };
 
 export const installFlow = async (name?: string) => {
   logger.clearScreen('error');
   intro(`flow: insatll`);
-  const startTime = new Date().getTime();
+  const startTime = performance.now();
   if (!name) {
     for (let i = 0; i < flows.length; i++) {
       const s = spinner();
@@ -123,14 +123,14 @@ export const installFlow = async (name?: string) => {
       });
       s.stop(`${flows[i].name} install success`);
     }
-    const endTime = new Date().getTime() - startTime;
-    outro(`flow success ${green(`【${Math.floor(endTime / 1000)}ms】`)}`);
+    const time = performance.now() - startTime;
+    outro(`flow success ${green(`【${time}ms】`)}`);
   }
 };
 
 export const createFlow = async (flow: Flow) => {
   intro(`flow: create ${flow.name}`);
-  const startTime = new Date().getTime();
+  const startTime = performance.now();
   const configDir = `${join(STORE_ROOT, `/flows/${flow.alias}.json`)}`;
   const s = spinner();
   s.start('createing');
@@ -138,6 +138,6 @@ export const createFlow = async (flow: Flow) => {
     logger.error(err);
   });
   s.stop('flow create success');
-  const endTime = new Date().getTime() - startTime;
-  outro(`flow success ${green(`【${Math.floor(endTime / 1000)}ms】`)}`);
+  const time = performance.now() - startTime;
+  outro(`flow success ${green(`【${time}ms】`)}`);
 };
