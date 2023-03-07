@@ -64,7 +64,7 @@ const generateGlobalType = async (files: string[]) => {
   const code = files
     .map((file) => {
       const { componentName } = getName(file);
-      return `${componentName}: typeof import('@onestop/icons')['${componentName}']`;
+      return `${componentName}: typeof import('@sugar/icons')['${componentName}']`;
     })
     .join('\n');
   const globalType = formatCode(`declare module 'vue'{  export interface GlobalComponents {${code}}} export {};`);

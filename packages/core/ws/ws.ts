@@ -129,8 +129,6 @@ export const setupWebSocket = (server: Server): WebSocketServer => {
     },
 
     send(...args: any[]) {
-      // eslint-disable-next-line no-restricted-syntax
-      debugger;
       let payload: sugarPayload;
       if (typeof args[0] === 'string') {
         payload = {
