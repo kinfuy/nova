@@ -1,5 +1,12 @@
 <template>
-  <svg class="icon" width="32px" height="32.00px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    class="icon"
+    width="32px"
+    height="32.00px"
+    viewBox="0 0 1024 1024"
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path d="M0 0h1024v1024H0z" fill="currentColor" fill-opacity="0" />
     <path
       d="M512 672A202.922667 202.922667 0 0 0 714.666667 469.333333V298.666667a202.666667 202.666667 0 1 0-405.333334 0v170.666666A202.922667 202.922667 0 0 0 512 672zM373.333333 298.666667a138.666667 138.666667 0 0 1 277.333334 0v170.666666a138.666667 138.666667 0 0 1-277.333334 0V298.666667z m170.666667 499.712v65.621333H682.666667a32 32 0 1 1 0 64H341.333333a32 32 0 1 1 0-64h138.666667v-65.621333a331.093333 331.093333 0 0 1-298.666667-329.045334 32 32 0 1 1 64 0 266.666667 266.666667 0 1 0 533.333334 0 32 32 0 1 1 64 0 331.093333 331.093333 0 0 1-298.666667 329.045334z"
@@ -7,10 +14,9 @@
     />
   </svg>
 </template>
-
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 export default defineComponent({
-  name: 'IconMaikefeng'
-});
+  name: 'IconMaikefeng',
+})
 </script>
