@@ -3,6 +3,7 @@ import { createLogger, printServerUrls } from '../logger/logger';
 
 import { customListener } from '../event';
 import { setupWebSocket } from '../ws/ws';
+import { FlowManage } from '../flow/flow';
 import { createServerCloseFn, httpServerStart, openBrowser, resolveHttpServer } from './http';
 import { MiddlewaresServer } from './middlewares';
 import { staticPlugin } from './middlewares/static';
@@ -28,13 +29,15 @@ export const createServer = async ({ port, host, rootdir } = defaultServerConfig
 
   const httpServer = await resolveHttpServer(middlewares.init.bind(middlewares));
 
+  const flowManage = new FlowManage();
+
   middlewares.use(baseMiddleware(rootdir));
 
   middlewares.use(staticPlugin);
 
   const wss = setupWebSocket(httpServer);
 
-  customListener(wss);
+  customListener(wss, flowManage);
 
   middlewares.use(errorPlugin);
 

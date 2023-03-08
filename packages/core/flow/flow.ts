@@ -1,7 +1,9 @@
 import { join } from 'node:path';
 import type { Flow } from '@sugar/types';
+import { spinner } from '@clack/prompts';
 import { STORE_ROOT } from '../config/path';
-import { loadJsonFile } from '../fs/load';
+import { loadJsonFile, writeJsonFile } from '../fs/load';
+import { createLogger } from '../logger/logger';
 
 const flowConfigPath = `${join(STORE_ROOT, `flows.json`)}`;
 
@@ -13,8 +15,14 @@ export interface FlowDesc {
 
 export class FlowManage {
   private _flows: FlowDesc[] = [];
+
+  logger = createLogger();
   constructor() {
     this.load();
+  }
+
+  get flows() {
+    return this._flows;
   }
 
   async load() {
@@ -23,7 +31,7 @@ export class FlowManage {
   }
 
   check(name: string) {
-    return this._flows.some((x) => (x.alias = name));
+    return this._flows.some((x) => x.alias === name);
   }
 
   async find(name: string): Promise<Flow | null> {
@@ -35,29 +43,42 @@ export class FlowManage {
     return null;
   }
 
-  update(name: string, flow: Flow) {
+  async update(name: string, flow: Flow) {
     if (this.check(name)) {
       this._flows.forEach((x) => {
         if (x.alias === name) {
-          x.alias = flow.alias;
+          x.desc = flow.desc;
+          x.name = flow.name;
         }
       });
-      this.storageSave();
+      await this.storageSave(flow);
     }
   }
 
-  delete() {}
-  add(flow: Flow) {
+  async delete() {}
+
+  async add(flow: Flow) {
     if (this.check(flow.alias)) {
-      this.update(flow.alias, flow);
+      await this.update(flow.alias, flow);
     } else {
       this._flows.push({
         alias: flow.alias,
         name: flow.name,
         desc: flow.desc
       });
+      await this.storageSave(flow);
     }
   }
 
-  storageSave() {}
+  async storageSave(flow: Flow) {
+    try {
+      const s = spinner();
+      s.start(`install ${flow.name}`);
+      await writeJsonFile(join(STORE_ROOT, `flows/${flow.alias}.json`), flow);
+      await writeJsonFile(join(STORE_ROOT, `flows.json`), this.flows);
+      s.stop(`${flow.name} install success`);
+    } catch (error: any) {
+      this.logger.error(error);
+    }
+  }
 }

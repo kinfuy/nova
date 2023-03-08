@@ -1,12 +1,11 @@
 import type { Flow } from '@sugar/types';
 import { createFlow, runFlow } from '../flow';
-import { flows } from '../flow/default';
+import type { FlowManage } from '../flow/flow';
 import type { CommitOrdering } from '../server/middlewares/git';
 import { getGitCommits } from '../server/middlewares/git';
-import { jsonStringify } from '../utils/json';
 import type { WebSocketServer } from '../ws/ws';
 
-export const customListener = (wss: WebSocketServer) => {
+export const customListener = (wss: WebSocketServer, flowManage: FlowManage) => {
   wss.on('sugar-client:create-flow', async (flow: Flow) => {
     await createFlow(flow);
   });
@@ -19,6 +18,6 @@ export const customListener = (wss: WebSocketServer) => {
     wss.send('sugar:commits', JSON.stringify(commits));
   });
   wss.on('sugar-client:get-flows', async () => {
-    wss.send('sugar:flows', jsonStringify(flows));
+    wss.send('sugar:flows', flowManage.flows);
   });
 };

@@ -2,7 +2,7 @@ import type { Flow } from '@sugar/types';
 
 export const flows: Flow[] = [
   {
-    name: 'git back',
+    name: 'git-back',
     alias: 'back',
     desc: '回退最近commit到暂村区',
     actions: [
@@ -14,7 +14,7 @@ export const flows: Flow[] = [
     ]
   },
   {
-    name: 'git push',
+    name: 'git-push',
     alias: 'push',
     desc: 'push',
     actions: [
@@ -59,7 +59,7 @@ export const flows: Flow[] = [
     ]
   },
   {
-    name: 'commit',
+    name: 'git-commit',
     alias: 'msg',
     desc: 'commit msg',
     actions: [
