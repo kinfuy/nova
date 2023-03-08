@@ -61,10 +61,13 @@ export interface ParamsAction extends BaseAction {
 
 export type Action = ShellAction | ScriptAction | ParamsAction;
 
-export interface Flow {
+export interface FlowDesc {
   name: string;
   alias: string;
   desc: string;
+}
+
+export interface Flow extends FlowDesc {
   actions: Action[];
   /**
    * flow 上下文

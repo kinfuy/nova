@@ -83,13 +83,14 @@ function handleMessage(payload: WsPayload, socket: WebSocket) {
 }
 
 function CustomEventListen(data: { event: CustomEventType; data: any }) {
+  const value = typeof data.data === 'string' ? jsonParse(data.data) : data.data;
   if (data.event === 'sugar:commits') {
     const commitStore = useCommit();
-    commitStore.setCommits(jsonParse(data.data));
+    commitStore.setCommits(value);
   }
   if (data.event === 'sugar:flows') {
     const flow = useFlow();
-    flow.setFlow(jsonParse(data.data));
+    flow.setFlow(value);
   }
 }
 

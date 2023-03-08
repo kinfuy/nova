@@ -1,21 +1,15 @@
-import type { Action, Flow } from '@sugar/types';
+import type { FlowDesc } from '@sugar/types';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 export const useFlow = defineStore(
   'flow',
   () => {
-    const flows = ref<Flow[]>([]);
-    function setFlow(val: Flow[]) {
+    const flows = ref<FlowDesc[]>([]);
+    function setFlow(val: FlowDesc[]) {
       flows.value = val;
     }
-    function setAction(flowName: string, action: Action) {
-      flows.value.forEach((flow) => {
-        if (flow.name === flowName) {
-          flow.actions.push(action);
-        }
-      });
-    }
+
     function getFlow(name: string) {
       return flows.value.find((x) => x.name === name);
     }
@@ -23,8 +17,7 @@ export const useFlow = defineStore(
     return {
       flows,
       setFlow,
-      getFlow,
-      setAction
+      getFlow
     };
   },
   {

@@ -1,17 +1,11 @@
 import { join } from 'node:path';
-import type { Flow } from '@sugar/types';
+import type { Flow, FlowDesc } from '@sugar/types';
 import { spinner } from '@clack/prompts';
 import { STORE_ROOT } from '../config/path';
 import { loadJsonFile, writeJsonFile } from '../fs/load';
 import { createLogger } from '../logger/logger';
 
 const flowConfigPath = `${join(STORE_ROOT, `flows.json`)}`;
-
-export interface FlowDesc {
-  name: string;
-  alias: string;
-  desc: string;
-}
 
 export class FlowManage {
   private _flows: FlowDesc[] = [];

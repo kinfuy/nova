@@ -21,7 +21,7 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
-import type { CustomPayload, Flow } from '@sugar/types';
+import type { CustomPayload, FlowDesc } from '@sugar/types';
 import { IconBofang } from '@sugar/icons';
 import { nextTick, onMounted } from 'vue';
 import Icon from '../components/Icon/index.vue';
@@ -31,7 +31,7 @@ import { useFlow } from '../store/useFlow';
 const { flows } = storeToRefs(useFlow());
 
 const ws = useWebSocket();
-const handleClick = (item: Flow) => {
+const handleClick = (item: FlowDesc) => {
   const event: CustomPayload = {
     type: 'custom',
     event: 'sugar-client:run-flow',
@@ -43,14 +43,14 @@ const handleClick = (item: Flow) => {
 };
 
 const handleCreate = () => {
-  const event: CustomPayload = {
-    type: 'custom',
-    event: 'sugar-client:create-flow',
-    data: flows.value[0]
-  };
-  if (ws && ws.readyState === 1) {
-    ws.send(JSON.stringify(event));
-  }
+  // const event: CustomPayload = {
+  //   type: 'custom',
+  //   event: 'sugar-client:create-flow',
+  //   data: flows.value[0]
+  // };
+  // if (ws && ws.readyState === 1) {
+  //   ws.send(JSON.stringify(event));
+  // }
 };
 
 onMounted(() => {
