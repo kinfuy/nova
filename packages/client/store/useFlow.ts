@@ -1,4 +1,4 @@
-import type { FlowDesc } from '@sugar/types';
+import type { FlowDesc } from '@nova/types';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 

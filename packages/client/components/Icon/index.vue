@@ -1,6 +1,6 @@
 <template>
   <i
-    class="sugar-svg-icon"
+    class="nova-svg-icon"
     :class="[
       {
         [`svg-animation-spin`]: spin

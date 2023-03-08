@@ -1,1 +1,1 @@
-## @sugar/icons
+## @nova/icons

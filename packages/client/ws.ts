@@ -8,7 +8,7 @@ export interface ConnectedPayload {
   type: 'connected';
 }
 
-export type CustomEventType = 'sugar:commits' | 'sugar:flows';
+export type CustomEventType = 'nova:commits' | 'nova:flows';
 export interface CustomPayload {
   type: 'custom';
   event: CustomEventType;
@@ -39,7 +39,7 @@ export interface command {
 }
 
 export const setupWebSocket = (protocol: string, hostAndPath: string, onCloseWithoutOpen?: () => void): WebSocket => {
-  const socket = new WebSocket(`${protocol}://${hostAndPath}`, 'sugar');
+  const socket = new WebSocket(`${protocol}://${hostAndPath}`, 'nova');
   let isOpened = false;
 
   socket.addEventListener(
@@ -64,7 +64,7 @@ export const setupWebSocket = (protocol: string, hostAndPath: string, onCloseWit
       return;
     }
 
-    console.log(`[sugar] server connection lost. polling for restart...`);
+    console.log(`[nova] server connection lost. polling for restart...`);
     location.reload();
   });
 
@@ -84,11 +84,11 @@ function handleMessage(payload: WsPayload, socket: WebSocket) {
 
 function CustomEventListen(data: { event: CustomEventType; data: any }) {
   const value = typeof data.data === 'string' ? jsonParse(data.data) : data.data;
-  if (data.event === 'sugar:commits') {
+  if (data.event === 'nova:commits') {
     const commitStore = useCommit();
     commitStore.setCommits(value);
   }
-  if (data.event === 'sugar:flows') {
+  if (data.event === 'nova:flows') {
     const flow = useFlow();
     flow.setFlow(value);
   }

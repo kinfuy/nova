@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import type { CustomPayload } from '@sugar/types';
+import type { CustomPayload } from '@nova/types';
 import { nextTick, onMounted } from 'vue';
 import { useWebSocket } from '../hooks/useWebSocket';
 import { useCommit } from '../store/useCommit';
@@ -16,7 +16,7 @@ const commitStore = useCommit();
 onMounted(() => {
   const event: CustomPayload = {
     type: 'custom',
-    event: 'sugar-client:get-commits'
+    event: 'nova-client:get-commits'
   };
   nextTick(() => {
     if (ws && ws.readyState === 1) {

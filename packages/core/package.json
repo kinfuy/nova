@@ -1,5 +1,5 @@
 {
-  "name": "@sugar/core",
+  "name": "@nova/core",
   "version": "0.0.1",
   "exports": {
     ".": {
@@ -24,7 +24,7 @@
     "@clack/prompts": "^0.6.1"
   },
   "devDependencies": {
-    "@sugar/types": "workspace:*",
+    "@nova/types": "workspace:*",
     "@types/node": "^18.11.9",
     "tsup": "6.6.3"
   }

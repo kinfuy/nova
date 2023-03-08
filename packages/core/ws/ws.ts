@@ -1,14 +1,14 @@
 import type { Server } from 'node:http';
 import type { WebSocket as WebSocketRaw } from 'ws';
 import { WebSocketServer as WebSocketServerRaw } from 'ws';
-import type { CustomPayload, InferCustomEventPayload, sugarPayload } from '@sugar/types';
+import type { CustomPayload, InferCustomEventPayload, novaPayload } from '@nova/types';
 import { jsonStringify } from '../utils/json';
 
 export interface WebSocketClient {
   /**
    * Send event to the client
    */
-  send(payload: sugarPayload): void;
+  send(payload: novaPayload): void;
   /**
    * Send custom event
    */
@@ -129,7 +129,7 @@ export const setupWebSocket = (server: Server): WebSocketServer => {
     },
 
     send(...args: any[]) {
-      let payload: sugarPayload;
+      let payload: novaPayload;
       if (typeof args[0] === 'string') {
         payload = {
           type: 'custom',

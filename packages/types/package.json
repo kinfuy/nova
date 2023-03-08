@@ -1,5 +1,5 @@
 {
-  "name": "@sugar/types",
+  "name": "@nova/types",
   "version": "0.0.1",
   "types": "dist",
   "scripts": {

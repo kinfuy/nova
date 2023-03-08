@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 import { cac } from 'cac';
-import { createServer, installFlow, runFlow } from '@sugar/core';
+import { createServer, installFlow, runFlow } from '@nova/core';
 import pkg from '../package.json';
-const cli = cac('sugar');
+const cli = cac('nova');
 
 export const defaultServerConfig = {
   rootdir: __dirname,

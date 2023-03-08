@@ -1,4 +1,8 @@
-<p align="center"> sugar</p>
+<p align="center">
+  <img width="100px" src="https://user-images.githubusercontent.com/37766068/223753053-5392b064-4507-452f-9a7f-69ada3ce27f9.png">
+</p>
+
+<h1 align="center"> nova</h1>
 
 打造超级个人工作 cli 工作站,重新定义 cli 工具
 

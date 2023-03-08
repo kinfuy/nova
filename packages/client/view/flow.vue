@@ -1,6 +1,6 @@
 <template>
-  <div class="sugar-flow-create" @click="handleCreate">新建</div>
-  <div class="sugar-flow">
+  <div class="nova-flow-create" @click="handleCreate">新建</div>
+  <div class="nova-flow">
     <div v-for="item in flows" :key="item.name" class="flow-card">
       <div class="crad-header">
         <div class="card-title">{{ item.name }}</div>
@@ -21,8 +21,8 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
-import type { CustomPayload, FlowDesc } from '@sugar/types';
-import { IconBofang } from '@sugar/icons';
+import type { CustomPayload, FlowDesc } from '@nova/types';
+import { IconBofang } from '@nova/icons';
 import { nextTick, onMounted } from 'vue';
 import Icon from '../components/Icon/index.vue';
 import { useWebSocket } from '../hooks/useWebSocket';
@@ -34,7 +34,7 @@ const ws = useWebSocket();
 const handleClick = (item: FlowDesc) => {
   const event: CustomPayload = {
     type: 'custom',
-    event: 'sugar-client:run-flow',
+    event: 'nova-client:run-flow',
     data: item
   };
   if (ws && ws.readyState === 1) {
@@ -45,7 +45,7 @@ const handleClick = (item: FlowDesc) => {
 const handleCreate = () => {
   // const event: CustomPayload = {
   //   type: 'custom',
-  //   event: 'sugar-client:create-flow',
+  //   event: 'nova-client:create-flow',
   //   data: flows.value[0]
   // };
   // if (ws && ws.readyState === 1) {
@@ -56,7 +56,7 @@ const handleCreate = () => {
 onMounted(() => {
   const event: CustomPayload = {
     type: 'custom',
-    event: 'sugar-client:get-flows'
+    event: 'nova-client:get-flows'
   };
   nextTick(() => {
     if (ws && ws.readyState === 1) {
@@ -68,11 +68,11 @@ onMounted(() => {
 
 <style lang="less" scoped>
 @import '../styles/var.less';
-.sugar-flow-create {
+.nova-flow-create {
   padding: 30px 10px 10px;
   cursor: pointer;
 }
-.sugar-flow {
+.nova-flow {
   padding: 10px;
   display: flex;
   flex-wrap: wrap;

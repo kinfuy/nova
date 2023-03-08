@@ -1,7 +1,7 @@
 {
-  "name": "@sugar/icons",
+  "name": "@nova/icons",
   "version": "0.0.1",
-  "description": "@sugar/icons svg-icon lib",
+  "description": "@nova/icons svg-icon lib",
   "author": "kinfuy",
   "license": "MIT",
   "main": "dist/lib/index.js",

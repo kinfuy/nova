@@ -1,5 +1,5 @@
 import { join } from 'node:path';
-import type { Flow, FlowDesc } from '@sugar/types';
+import type { Flow, FlowDesc } from '@nova/types';
 import { spinner } from '@clack/prompts';
 import { STORE_ROOT } from '../config/path';
 import { loadJsonFile, writeJsonFile } from '../fs/load';

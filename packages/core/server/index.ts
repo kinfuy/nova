@@ -10,13 +10,13 @@ import { staticPlugin } from './middlewares/static';
 import { baseMiddleware } from './middlewares/base';
 import { errorPlugin } from './middlewares/error';
 
-export const defaultServerConfig: sugarGitServerConfig = {
+export const defaultServerConfig: novaGitServerConfig = {
   rootdir: __dirname,
   port: 5124,
   host: 'localhost'
 };
 
-export interface sugarGitServerConfig {
+export interface novaGitServerConfig {
   rootdir: string;
   port: number;
   host: string;
