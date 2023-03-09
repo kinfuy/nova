@@ -32,7 +32,7 @@ cli
     await installFlow(options.flow);
   });
 
-cli.command('run <flow>', 'run flow with alias').action(async (flow: string) => {
+cli.command('run [flow]', 'run flow with alias').action(async (flow: string) => {
   await runFlow(flow);
 });
 

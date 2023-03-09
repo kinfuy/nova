@@ -1,6 +1,6 @@
 import { join } from 'node:path';
 import type { Action, Flow, FlowContent, FlowDesc, ParamsAction, ShellAction } from '@nova/types';
-import { confirm, intro, multiselect, outro, select, spinner, text } from '@clack/prompts';
+import { confirm, intro, isCancel, multiselect, outro, select, spinner, text } from '@clack/prompts';
 import { green } from 'kolorist';
 import { STORE_ROOT } from '../config/path';
 import { loadJsonFile, writeJsonFile } from '../fs/load';
@@ -100,26 +100,42 @@ export class FlowManage {
             if (action.before) action.before(flow.content || { var: {} });
             let value;
             if (action.params.type === 'input') {
-              value = await text({
+              const valueText = await text({
                 message: action.params.message
               });
+              if (isCancel(valueText)) {
+                process.exit(0);
+              }
+              value = valueText;
             }
             if (action.params.type === 'confirm') {
-              value = await confirm({
+              const valueConfirm = await confirm({
                 message: action.params.message
               });
+              if (isCancel(valueConfirm)) {
+                process.exit(0);
+              }
+              value = valueConfirm;
             }
             if (action.params.type === 'select') {
-              value = await select({
+              const valueSelect = await select({
                 message: action.params.message,
                 options: action.params.options
               });
+              if (isCancel(valueSelect)) {
+                process.exit(0);
+              }
+              value = valueSelect;
             }
             if (action.params.type === 'multiselect') {
-              value = await multiselect({
+              const valueMultiselect = await multiselect({
                 message: action.params.message,
                 options: action.params.options
               });
+              if (isCancel(valueMultiselect)) {
+                process.exit(0);
+              }
+              value = valueMultiselect;
             }
             setContent('var', {
               [action.name]: value

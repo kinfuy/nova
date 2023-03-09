@@ -1,5 +1,5 @@
 import type { Flow } from '@nova/types';
-import { intro, outro } from '@clack/prompts';
+import { intro, isCancel, outro, select } from '@clack/prompts';
 import { green } from 'kolorist';
 
 import { createLogger } from '../logger/logger';
@@ -8,14 +8,31 @@ import { FlowManage } from './flow';
 const logger = createLogger();
 
 export const runFlow = async (flowName: string) => {
-  if (!flowName) {
-    logger.warn('need a flow name');
-  }
+  let flow = flowName;
   const flowManage = new FlowManage();
-  await flowManage.run(flowName);
+
+  await flowManage.checkLoaded();
+  if (!flow) {
+    const options = flowManage.flows.map((x) => {
+      return {
+        label: x.name,
+        value: x.alias
+      };
+    });
+    const selectFlow = await select<{ label: string; value: string }[], string>({
+      message: '选择需要执行的flow',
+      options
+    });
+    if (isCancel(selectFlow)) {
+      process.exit(0);
+    }
+    flow = selectFlow;
+  }
+  await flowManage.run(flow);
 };
 
 export const installFlow = async (name?: string) => {
+  // TODO install remote
   const flowManage = new FlowManage();
   logger.clearScreen('error');
   const startTime = performance.now();
