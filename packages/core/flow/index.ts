@@ -15,7 +15,7 @@ export const runFlow = async (flowName: string) => {
   if (!flow) {
     const options = flowManage.flows.map((x) => {
       return {
-        label: x.name,
+        label: `${x.name}--${x.desc}`,
         value: x.alias
       };
     });
