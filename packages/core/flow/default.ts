@@ -59,6 +59,28 @@ export const flows: Flow[] = [
     ]
   },
   {
+    name: 'chore-build',
+    alias: 'build',
+    desc: 'chore-build',
+    actions: [
+      {
+        type: 'shell',
+        command: 'pnpm',
+        args: ['run', 'build']
+      },
+      {
+        type: 'shell',
+        command: 'git',
+        args: ['add', '.']
+      },
+      {
+        type: 'shell',
+        command: 'git',
+        args: ['commit', '-m', 'chore: build']
+      }
+    ]
+  },
+  {
     name: 'git-commit',
     alias: 'msg',
     desc: 'commit msg',
