@@ -72,8 +72,6 @@ export const setupWebSocket = (protocol: string, hostAndPath: string, onCloseWit
 };
 
 function handleMessage(payload: WsPayload, socket: WebSocket) {
-  // eslint-disable-next-line no-restricted-syntax
-  debugger;
   if (payload.type === 'connected') {
     ping(socket);
   }

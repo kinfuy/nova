@@ -12,8 +12,6 @@ export const defaultServerConfig = {
 };
 
 cli
-  .option('-c, --config <file>', `[string] use specified config file`)
-  .option('--s <path>', `[string] public base path (default: /)`)
   .option('-l, --logLevel <level>', `[string] info | warn | error | silent`)
   .option('--clearScreen', `[boolean] allow/disable clear screen when logging`);
 
@@ -34,8 +32,14 @@ cli
     await installFlow(options.flow);
   });
 
-cli.command('[flow]', 'run flow').action(async (flow: string) => {
+cli.command('run <flow>', 'run flow with alias').action(async (flow: string) => {
   await runFlow(flow);
+});
+
+cli.command('[custom]', 'run flow').action(async (custom: string) => {
+  if (custom === 'flow') {
+    await runFlow(custom);
+  }
 });
 
 cli.help();

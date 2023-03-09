@@ -6,7 +6,8 @@
   "author": "kinfuy",
   "license": "MIT",
   "bin": {
-    "nova": "dist/cli.js"
+    "nova": "dist/cli.js",
+    "nov": "dist/cli.js"
   },
   "files": [
     "dist"
