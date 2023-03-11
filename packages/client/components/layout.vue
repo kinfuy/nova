@@ -41,14 +41,14 @@ interface Menu {
 
 const menuOptions = ref<Menu[]>([
   {
-    name: 'graph',
-    zh_name: '分支管理',
-    icon: markRaw(IconCloudshell)
-  },
-  {
     name: 'gitFlow',
     zh_name: '流程预设',
     icon: markRaw(IconGraph)
+  },
+  {
+    name: 'graph',
+    zh_name: '分支管理',
+    icon: markRaw(IconCloudshell)
   },
   {
     name: 'shop',
