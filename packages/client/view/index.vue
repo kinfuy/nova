@@ -1,7 +1,11 @@
 <template>
   <div class="graph-content">
     <div class="graph-commit">
-      <div v-for="commit in commitStore.commits" :key="commit.shortHash">{{ commit.message }}</div>
+      <el-timeline>
+        <el-timeline-item v-for="commit in commitStore.commits" :key="commit.shortHash" :timestamp="commit.date">
+          {{ commit.message }}
+        </el-timeline-item>
+      </el-timeline>
     </div>
   </div>
 </template>
@@ -32,9 +36,5 @@ onMounted(() => {
   padding: 10px;
   box-sizing: border-box;
   height: 100%;
-  .graph-commit {
-    height: calc(100% - 40px);
-    overflow-y: auto;
-  }
 }
 </style>

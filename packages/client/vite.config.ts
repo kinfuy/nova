@@ -1,6 +1,9 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vuejsx from '@vitejs/plugin-vue-jsx';
+import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 
 export default defineConfig({
   define: {
@@ -8,10 +11,19 @@ export default defineConfig({
   },
   build: {
     outDir: '../cli/dist/view',
-    sourcemap: true
-    // watch: {
-    //   include: './package/client/**'
-    // }
+    sourcemap: true,
+    watch: {
+      include: '.'
+    }
   },
-  plugins: [vue(), vuejsx()]
+  plugins: [
+    vue(),
+    vuejsx(),
+    AutoImport({
+      resolvers: [ElementPlusResolver()]
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()]
+    })
+  ]
 });

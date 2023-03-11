@@ -1,21 +1,25 @@
 <template>
   <div class="nova-flow-create" @click="handleCreate">新建</div>
   <div class="nova-flow">
-    <div v-for="item in flows" :key="item.name" class="flow-card">
-      <div class="crad-header">
-        <div class="card-title">{{ item.name }}</div>
-        <div class="card-alias">
-          <span>sh：</span>
-          <span>{{ item.alias }}</span>
-        </div>
-        <div class="card-operate">
-          <Icon class="icon-btn" :size="24" @click="handleClick(item)">
-            <IconBofang />
-          </Icon>
-        </div>
-      </div>
-      <div class="card-desc">{{ item.desc }}</div>
-    </div>
+    <el-row :gutter="20">
+      <el-col v-for="item in flows" :key="item.name" :xs="8" :lg="6">
+        <el-card shadow="hover">
+          <div class="crad-header">
+            <div class="card-title">{{ item.name }}</div>
+            <div class="card-alias">
+              <span>sh：</span>
+              <span>{{ item.alias }}</span>
+            </div>
+            <div class="card-operate">
+              <Icon class="icon-btn" :size="24" @click="handleClick(item)">
+                <IconBofang />
+              </Icon>
+            </div>
+          </div>
+          <div class="card-desc">{{ item.desc }}</div>
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -74,45 +78,32 @@ onMounted(() => {
 }
 .nova-flow {
   padding: 10px;
-  display: flex;
-  flex-wrap: wrap;
-
-  .flow-card {
-    width: 200px;
-    height: 60px;
-    box-shadow: 0 0 4px #ddd;
-    padding: 10px;
-    margin-right: 20px;
-    &:hover {
-      box-shadow: 0 0 4px #ccc;
+  .crad-header {
+    position: relative;
+    .card-operate {
+      position: absolute;
+      right: 0;
+      top: 0;
     }
-    .crad-header {
-      position: relative;
-      .card-operate {
-        position: absolute;
-        right: 0;
-        top: 0;
-      }
-      .card-title {
-        font-size: 16px;
-        width: calc(100% - 50px);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-
-      .card-alias {
-        display: inline-block;
-        font-size: 14px;
-        color: #666;
-        border-radius: 4px;
-      }
+    .card-title {
+      font-size: 16px;
+      width: calc(100% - 50px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
-    .card-desc {
+    .card-alias {
+      display: inline-block;
       font-size: 14px;
-      color: #999;
+      color: #666;
+      border-radius: 4px;
     }
+  }
+
+  .card-desc {
+    font-size: 14px;
+    color: #999;
   }
 }
 </style>

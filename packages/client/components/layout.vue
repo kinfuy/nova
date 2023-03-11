@@ -1,29 +1,27 @@
 <template>
   <div class="nova-layout">
-    <div class="layout-silder">
-      <div class="silder-logo">
-        <img src="../assets/favicon.png" alt="logo" />
-        <span style="margin-left: 5px">nova</span>
-      </div>
-      <div
-        v-for="item in menuOptions"
-        :key="item.name"
-        class="silder-menu"
-        :class="{ 'menu-active': activeMenu === item.name }"
-        @click="handleClick(item)"
-      >
-        <Icon :size="20">
-          <component :is="item.icon" />
-        </Icon>
+    <el-container>
+      <el-aside width="200px">
+        <div class="silder-logo">
+          <img src="../assets/favicon.png" alt="logo" />
+          <span style="margin-left: 5px">nova</span>
+        </div>
+        <div
+          v-for="item in menuOptions"
+          :key="item.name"
+          class="silder-menu"
+          :class="{ 'menu-active': activeMenu === item.name }"
+          @click="handleClick(item)"
+        >
+          <Icon :size="20">
+            <component :is="item.icon" />
+          </Icon>
 
-        <span style="margin-left: 5px">{{ item.zh_name }}</span>
-        <!-- <span>{{ item.name.replace(/^\S/, (s) => s.toUpperCase()) }}</span> -->
-        <!-- <span class="text-desc">{{ item.zh_name }}</span> -->
-      </div>
-    </div>
-    <div class="layout-content">
-      <router-view></router-view>
-    </div>
+          <span style="margin-left: 5px">{{ item.zh_name }}</span>
+        </div>
+      </el-aside>
+      <el-main><router-view></router-view></el-main>
+    </el-container>
   </div>
 </template>
 
@@ -83,56 +81,45 @@ const handleClick = (item: Menu) => {
 .nova-layout {
   width: 100%;
   display: flex;
-  .layout-silder {
-    width: 260px;
-    height: 100vh;
-    background-color: rgba(249, 250, 251);
+  .silder-logo {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    padding: 10px 50px;
+    img {
+      width: 28px;
+      height: 28px;
+    }
+  }
+  .silder-menu {
+    width: 100%;
+    cursor: pointer;
+    padding: 10px 50px;
     box-sizing: border-box;
-    .silder-logo {
-      display: flex;
-      align-items: center;
-      height: 50px;
-      width: 100%;
-      padding: 10px 50px;
-      img {
-        width: 28px;
-        height: 28px;
-      }
-    }
-    .silder-menu {
-      width: 100%;
-      cursor: pointer;
-      padding: 10px 50px;
-      box-sizing: border-box;
-      border-radius: 4px;
-      &:hover {
-        background-color: #f1f1f1;
-      }
-
-      .text-desc {
-        font-size: 12px;
-        margin-left: 4px;
-        color: rgba(156, 163, 175);
-      }
-      &:hover {
-        color: @theme-color;
-        .text-desc {
-          color: @theme-color;
-        }
-      }
-    }
-    .menu-active {
+    border-radius: 4px;
+    &:hover {
       background-color: #f1f1f1;
+    }
+
+    .text-desc {
+      font-size: 12px;
+      margin-left: 4px;
+      color: rgba(156, 163, 175);
+    }
+    &:hover {
       color: @theme-color;
       .text-desc {
         color: @theme-color;
       }
     }
   }
-  .layout-content {
-    width: calc(100% - 260px);
-    height: 100vh;
-    flex: 0 0 auto;
+  .menu-active {
+    background-color: #f1f1f1;
+    color: @theme-color;
+    .text-desc {
+      color: @theme-color;
+    }
   }
 }
 </style>
