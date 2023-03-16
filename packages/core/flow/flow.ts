@@ -56,8 +56,6 @@ export class FlowManage {
       this.logger.warn('need a flow name');
       return;
     }
-    // eslint-disable-next-line no-restricted-syntax
-    debugger;
     await this.checkLoaded();
     const flow = await this.find(alias);
 
