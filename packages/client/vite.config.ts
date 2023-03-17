@@ -11,10 +11,7 @@ export default defineConfig({
   },
   build: {
     outDir: '../cli/dist/view',
-    sourcemap: true,
-    watch: {
-      include: '.'
-    }
+    sourcemap: true
   },
   plugins: [
     vue(),

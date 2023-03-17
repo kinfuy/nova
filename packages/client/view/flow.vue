@@ -7,8 +7,7 @@
           <div class="crad-header">
             <div class="card-title">{{ item.name }}</div>
             <div class="card-alias">
-              <span>sh：</span>
-              <span>{{ item.alias }}</span>
+              <el-tag type="success">{{ item.alias }}</el-tag>
             </div>
             <div class="card-operate">
               <Icon class="icon-btn" :size="24" @click="handleClick(item)">
