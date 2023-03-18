@@ -3,12 +3,13 @@
   <div class="nova-flow">
     <el-row :gutter="20">
       <el-col v-for="item in flows" :key="item.name" :xs="8" :lg="6">
-        <el-card shadow="hover">
+        <el-card style="margin-bottom: 20px" shadow="hover">
           <div class="crad-header">
-            <div class="card-title">{{ item.name }}</div>
-            <div class="card-alias">
+            <div class="card-title">
               <el-tag type="success">{{ item.alias }}</el-tag>
+              <span>{{ item.name }}</span>
             </div>
+
             <div class="card-operate">
               <Icon class="icon-btn" :size="24" @click="handleClick(item)">
                 <IconBofang />
