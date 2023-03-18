@@ -17,6 +17,129 @@ nova-sh is a super personal work cli workstation that lets you execute shell wor
 - Supports using graphical interface to access common workflows
 - Supports real-time communication with other nova-sh users
 
+## Demo
+
+nov run
+
+<img width="600px" src="https://user-images.githubusercontent.com/37766068/226115905-75acc896-5551-455c-8e3e-2f6a4a433c1b.png">
+
+nov run msg
+
+<img width="600px" src="https://user-images.githubusercontent.com/37766068/226115916-cd4776f5-2e98-435d-aa46-31f09642619c.png">
+
+## simple config
+
+```js
+export const flows: Flow[] = [
+  {
+    name: 'git-back',
+    alias: 'back',
+    desc: '回退最近commit到暂村区',
+    actions: [
+      {
+        type: 'shell',
+        command: 'git',
+        args: ['reset', '--soft', 'HEAD^']
+      }
+    ]
+  },
+  {
+    name: 'git-push',
+    alias: 'push',
+    desc: 'push',
+    actions: [
+      {
+        type: 'shell',
+        command: 'git',
+        args: ['rev-parse', '--abbrev-ref', 'HEAD'],
+        catch: 'branch'
+      },
+      {
+        type: 'shell',
+        command: 'git',
+        args: (ctx) => {
+          return ['config', '--get', `branch.${ctx.var.branch}.remote`];
+        },
+        catch: 'remote'
+      },
+      {
+        type: 'shell',
+        command: 'git',
+        args: (ctx) => {
+          return ['push', ctx.var.remote, ctx.var.branch];
+        }
+      }
+    ]
+  },
+  {
+    name: 'fix-detail',
+    alias: 'fd',
+    desc: '常规fix detail commit',
+    actions: [
+      {
+        type: 'shell',
+        command: 'git',
+        args: ['add', '.']
+      },
+      {
+        type: 'shell',
+        command: 'git',
+        args: ['commit', '-m', 'fix: detail']
+      }
+    ]
+  },
+  {
+    name: 'chore-build',
+    alias: 'build',
+    desc: 'chore-build',
+    actions: [
+      {
+        type: 'shell',
+        command: 'pnpm',
+        args: ['run', 'build']
+      },
+      {
+        type: 'shell',
+        command: 'git',
+        args: ['add', '.']
+      },
+      {
+        type: 'shell',
+        command: 'git',
+        args: ['commit', '-m', 'chore: build']
+      }
+    ]
+  },
+  {
+    name: 'git-commit',
+    alias: 'msg',
+    desc: 'commit msg',
+    actions: [
+      {
+        type: 'shell',
+        command: 'git',
+        args: ['add', '.']
+      },
+      {
+        type: 'params',
+        name: 'message',
+        params: {
+          type: 'input',
+          message: '输入commit msg'
+        }
+      },
+      {
+        type: 'shell',
+        command: 'git',
+        args: (ctx) => {
+          return ['commit', '-m', `${ctx.var?.message}`];
+        }
+      }
+    ]
+  }
+];
+```
+
 ## Installation
 
 To install nova-sh, you need a Linux or Mac OS system and have node.js and npm installed. Then you can use the following command to install nova-sh:
