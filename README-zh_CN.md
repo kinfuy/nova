@@ -4,9 +4,13 @@
 
 <h1 align="center"> nova-sh</h1>
 
-[简体中文](./README-zh_CN.md) | English
+简体中文 | [English](./README.md)
 
 nova-sh is a super personal work cli workstation that lets you execute shell workflows and provide contextual communication capabilities. nova-sh redefines cli tools, making your terminal operations more efficient, smarter, and more fun.
+
+## Progress
+
+- Support script workflows
 
 ## Features
 
@@ -15,44 +19,38 @@ nova-sh is a super personal work cli workstation that lets you execute shell wor
 - Supports creating and sharing custom workflows
 - Supports viewing and copying command output
 - Supports using graphical interface to access common workflows
-- Supports real-time communication with other nova-sh users
 
 ## Installation
 
 To install nova-sh, you need a Linux or Mac OS system and have node.js and npm installed. Then you can use the following command to install nova-sh:
 
 ```bash
-npm install -g nova-sh
+pnpm add -g nova-sh
 ```
-
-````
 
 Or you can clone this project from GitHub and run it locally:
 
 ```bash
-git clone https://github.com/yourname/nova-sh.git
+git clone https://github.com/kinfuy/nova-sh.git
 cd nova-sh
-npm install
-npm start
+pnpm install
+pnpm run build
 ```
 
 ## Usage
 
-To start nova-sh, just type `nova` in your terminal. Then you can use the following ways to use nova-sh:
+To start nova-sh, just type `nova` or `nov` keywords in your terminal. The supported commands are as follows:
 
-- Enter any shell command and press enter to execute it, such as `ls` or `git status`
-- Enter `/search` followed by a natural language description to search and execute shell commands, such as `/search count all the lines of code recursively under this directory`
-- Enter `/workflow` followed by a workflow name to execute a predefined workflow, such as `/workflow docker`
-- Enter `/help` to see all available commands and options
+- nov config Open configuration center
+
+- nov run [name] Execute workflow
 
 ## Contributing
 
-If you are interested in this project and want to contribute to it, please read our [contribution guide](CONTRIBUTING.md).
+If you are interested in this project and want to contribute to it.
 
 ## License
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This project is licensed under the [MIT License](LICENSE).
-
-````
