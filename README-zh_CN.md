@@ -20,19 +20,19 @@
 
 简体中文 | [English](./README.md)
 
-nova-sh is a super personal work cli workstation that lets you execute shell workflows and provide contextual communication capabilities. nova-sh redefines cli tools, making your terminal operations more efficient, smarter, and more fun.
+</p> <h1 align="center"> nova-sh</h1> 
+ nova-sh 是一个超级个人工作 cli 工作站，它可以让你执行 shell 工作流，并提供上下文沟通能力。nova-sh 重新定义了 cli 工具，让你的终端操作更高效、更智能、更有趣。
 
-## Progress
+## 进度
 
-- Support script workflows
+- 支持脚本工作流
 
-## Features
+## 特性
 
-- Supports a variety of common shell commands, such as ls, cd, git, curl, etc.
-- Supports using natural language to search and execute shell commands
-- Supports creating and sharing custom workflows
-- Supports viewing and copying command output
-- Supports using graphical interface to access common workflows
+- 支持多种常用的 shell 命令，如 ls, cd, git, curl 等 - 支持使用自然语言搜索和执行 shell 命令
+- 支持创建和分享自定义的工作流
+- 支持查看和复制命令的输出
+- 支持使用图形界面访问常用的工作流
 
 ## Demo
 
@@ -157,37 +157,34 @@ export const flows: Flow[] = [
 ];
 ```
 
-## Installation
+## 安装
 
-To install nova-sh, you need a Linux or Mac OS system and have node.js and npm installed. Then you can use the following command to install nova-sh:
+要安装 nova-sh，你需要有一个 Linux 或 Mac OS 的系统，并且已经安装了 node.js 和 npm。然后，你可以使用以下命令来安装 nova-sh：
 
 ```bash
 pnpm add -g nova-sh
 ```
 
-Or you can clone this project from GitHub and run it locally:
+或者，你也可以从 GitHub 上克隆本项目，并在本地运行：
 
 ```bash
-git clone https://github.com/kinfuy/nova-sh.git
-cd nova-sh
-pnpm install
-pnpm run build
+ git clone https://github.com/kinfuy/nova-sh.git
+ cd nova-sh
+ pnpm install
+ pnpm run build
 ```
 
-## Usage
+## 使用
 
-To start nova-sh, just type `nova` or `nov` keywords in your terminal. The supported commands are as follows:
+要启动 nova-sh，你只需要在终端中输入 `nova` 或者`nov` 关键字，支持的命令如下
 
-- nov config Open configuration center
+- nov config 打开配置中心
+- nov run 【name】 执行工作流
 
-- nov run [name] Execute workflow
+## 贡献
 
-## Contributing
+如果你对本项目感兴趣，欢迎为其做出贡献
 
-If you are interested in this project and want to contribute to it.
+## 许可证
 
-## License
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-This project is licensed under the [MIT License](LICENSE).
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 本项目采用 [MIT 许可证](LICENSE)。
