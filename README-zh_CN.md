@@ -3,6 +3,20 @@
 </p>
 
 <h1 align="center"> nova-sh</h1>
+<p align="center">
+  <a href="https://www.npmjs.org/package/nova-sh">
+  <img src="https://img.shields.io/npm/v/nova-sh.svg">
+  </a>
+  <a href="https://npmcharts.com/compare/nova-sh?minimal=true">
+  <img src="https://img.shields.io/npm/dm/nova-sh.svg?color=357C3C">
+  </a>
+  <a href="https://npmcharts.com/compare/nova-sh?minimal=true">
+  <img src="https://img.shields.io/npm/l/nova-sh.svg?color=blue">
+  </a>
+
+  </a>
+  <br>
+</p>
 
 简体中文 | [English](./README.md)
 

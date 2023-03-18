@@ -4,6 +4,21 @@
 
 <h1 align="center"> nova-sh</h1>
 
+<p align="center">
+  <a href="https://www.npmjs.org/package/nova-sh">
+  <img src="https://img.shields.io/npm/v/nova-sh.svg">
+  </a>
+  <a href="https://npmcharts.com/compare/nova-sh?minimal=true">
+  <img src="https://img.shields.io/npm/dm/nova-sh.svg?color=357C3C">
+  </a>
+  <a href="https://npmcharts.com/compare/nova-sh?minimal=true">
+  <img src="https://img.shields.io/npm/l/nova-sh.svg?color=blue">
+  </a>
+
+  </a>
+  <br>
+</p>
+
 [简体中文](./README-zh_CN.md) | English
 
 nova-sh is a super personal work cli workstation that lets you execute shell workflows and provide contextual communication capabilities. nova-sh redefines cli tools, making your terminal operations more efficient, smarter, and more fun.
@@ -148,8 +163,6 @@ To install nova-sh, you need a Linux or Mac OS system and have node.js and npm i
 npm install -g nova-sh
 ```
 
-````
-
 Or you can clone this project from GitHub and run it locally:
 
 ```bash
@@ -178,4 +191,6 @@ If you are interested in this project and want to contribute to it, please read 
 
 This project is licensed under the [MIT License](LICENSE).
 
-````
+```
+
+```
