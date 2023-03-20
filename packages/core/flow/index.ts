@@ -1,4 +1,4 @@
-import type { Flow } from '@nova/types';
+import type { Flow } from 'nova-sh-types';
 import { intro, isCancel, outro, select } from '@clack/prompts';
 import { green } from 'kolorist';
 

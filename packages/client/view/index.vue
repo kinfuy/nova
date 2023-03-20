@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import type { CustomPayload } from '@nova/types';
+import type { CustomPayload } from 'nova-sh-types';
 import { nextTick, onMounted } from 'vue';
 import { useWebSocket } from '../hooks/useWebSocket';
 import { useCommit } from '../store/useCommit';

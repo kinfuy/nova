@@ -25,8 +25,8 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
-import type { CustomPayload, FlowDesc } from '@nova/types';
-import { IconBofang } from '@nova/icons';
+import type { CustomPayload, FlowDesc } from 'nova-sh-types';
+import { IconBofang } from 'nova-sh-icons';
 import { nextTick, onMounted } from 'vue';
 import Icon from '../components/Icon/index.vue';
 import { useWebSocket } from '../hooks/useWebSocket';

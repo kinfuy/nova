@@ -28,7 +28,7 @@
 <script lang="ts" setup>
 import { markRaw, ref, watchEffect } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { IconCloudshell, IconGraph, IconShangpu, IconShezhi } from '@nova/icons';
+import { IconCloudshell, IconGraph, IconShangpu, IconShezhi } from 'nova-sh-icons';
 import Icon from '../components/Icon/index.vue';
 
 interface Menu {

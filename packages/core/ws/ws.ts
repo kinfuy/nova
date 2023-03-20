@@ -1,7 +1,7 @@
 import type { Server } from 'node:http';
 import type { WebSocket as WebSocketRaw } from 'ws';
 import { WebSocketServer as WebSocketServerRaw } from 'ws';
-import type { CustomPayload, InferCustomEventPayload, novaPayload } from '@nova/types';
+import type { CustomPayload, InferCustomEventPayload, novaPayload } from 'nova-sh-types';
 import { jsonStringify } from '../utils/json';
 
 export interface WebSocketClient {
