@@ -1,4 +1,4 @@
-import type { Flow, FlowDesc } from '@nova/types';
+import type { Flow, FlowDesc } from 'nova-sh-types';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 

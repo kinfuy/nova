@@ -1,5 +1,5 @@
 import { join } from 'node:path';
-import type { Action, Flow, FlowContent, FlowDesc, ParamsAction, ShellAction } from '@nova/types';
+import type { Action, Flow, FlowContent, FlowDesc, ParamsAction, ShellAction } from 'nova-sh-types';
 import { confirm, intro, isCancel, multiselect, outro, select, spinner, text } from '@clack/prompts';
 import { green } from 'kolorist';
 import { STORE_ROOT } from '../config/path';

@@ -64,7 +64,7 @@ const generateGlobalType = async (files: string[]) => {
   const code = files
     .map((file) => {
       const { componentName } = getName(file);
-      return `${componentName}: typeof import('@nova/icons')['${componentName}']`;
+      return `${componentName}: typeof import('nova-sh-icons')['${componentName}']`;
     })
     .join('\n');
   const globalType = formatCode(`declare module 'vue'{  export interface GlobalComponents {${code}}} export {};`);

@@ -2,6 +2,7 @@
   "name": "nova",
   "description": "Custom git information",
   "author": "kinfuy",
+  "private": true,
   "license": "MIT",
   "scripts": {
     "dev": "pnpm run -C packages/client dev",
