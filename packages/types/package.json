@@ -1,6 +1,6 @@
 {
-  "name": "@nova/types",
-  "version": "0.0.2",
+  "name": "nova-sh-types",
+  "version": "0.0.3",
   "types": "dist",
   "scripts": {
     "build": "tsup"

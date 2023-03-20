@@ -1,6 +1,6 @@
 {
-  "name": "@nova/core",
-  "version": "0.0.2",
+  "name": "nova-sh-core",
+  "version": "0.0.3",
   "exports": {
     ".": {
       "require": "./dist/index.js",
@@ -24,7 +24,7 @@
     "@clack/prompts": "^0.6.1"
   },
   "devDependencies": {
-    "@nova/types": "workspace:*",
+    "nova-sh-types": "workspace:*",
     "@types/node": "^18.11.9",
     "tsup": "6.6.3"
   }

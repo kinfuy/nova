@@ -1,12 +1,12 @@
 {
-  "name": "@nova/client",
-  "version": "0.0.2",
+  "name": "nova-sh-client",
+  "version": "0.0.3",
   "scripts": {
     "dev": "vite --mode dev",
     "build": "vite build"
   },
   "dependencies": {
-    "@nova/icons": "workspace:*",
+    "nova-sh-icons": "workspace:*",
     "pinia": "^2.0.30",
     "pinia-plugin-persistedstate": "^3.0.2",
     "vue": "^3.2.45",
@@ -14,7 +14,7 @@
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
-    "@nova/types": "workspace:*",
+    "nova-sh-types": "workspace:*",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vitejs/plugin-vue-jsx": "^3.0.0",
     "unplugin-vue-components": "^0.24.1",
