@@ -37,9 +37,7 @@ cli.command('run [flow]', 'run flow with alias').action(async (flow: string) => 
 });
 
 cli.command('[custom]', 'run flow').action(async (custom: string) => {
-  if (custom === 'flow') {
-    await runFlow(custom);
-  }
+  await runFlow(custom);
 });
 
 cli.help();
