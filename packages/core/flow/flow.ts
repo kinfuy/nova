@@ -6,6 +6,7 @@ import { STORE_ROOT } from '../config/path';
 import { loadJsonFile, writeJsonFile } from '../fs/load';
 import { createLogger } from '../logger/logger';
 import { execCommand } from '../utils/shell';
+import { checkGitRepo } from '../git/check';
 
 const flowConfigPath = `${join(STORE_ROOT, `flows.json`)}`;
 
@@ -76,6 +77,17 @@ export class FlowManage {
       if (flow.alias === alias) {
         intro(`flow: run ${flow.name}`);
         const startTime = performance.now();
+        if (flow.actions.some((a) => isShellAction(a) && a.command === 'git')) {
+          const checkGit = checkGitRepo();
+          if (!checkGit) {
+            const cancelGit = await confirm({
+              message: 'The current directory is not the Git root directory. Do you want to continue'
+            });
+            if (isCancel(cancelGit) || !cancelGit) {
+              process.exit(0);
+            }
+          }
+        }
         for (let i = 0; i < flow.actions.length; i++) {
           const s = spinner();
           const action = flow.actions[i];

@@ -21,7 +21,7 @@
     "execa": "^5.0.1",
     "kolorist": "^1.5.1",
     "ws": "^8.12.0",
-    "@clack/prompts": "^0.6.1"
+    "@clack/prompts": "^0.6.3"
   },
   "devDependencies": {
     "nova-sh-types": "workspace:*",
