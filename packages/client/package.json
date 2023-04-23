@@ -1,6 +1,6 @@
 {
   "name": "nova-sh-client",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "scripts": {
     "dev": "vite --mode dev",
     "build": "vite build"
