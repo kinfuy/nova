@@ -1,6 +1,6 @@
 {
   "name": "nova-sh-icons",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "nova-sh-icons svg-icon lib",
   "author": "kinfuy",
   "license": "MIT",
@@ -19,6 +19,7 @@
   "peerDependencies": {
     "vue": "^3.2.0"
   },
+  "repository": "https://github.com/kinfuy/nova",
   "devDependencies": {
     "@alqmc/build-ts": "^0.0.9",
     "@alqmc/build-utils": "^0.0.5",
