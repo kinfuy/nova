@@ -5,6 +5,7 @@
   "scripts": {
     "build": "tsup"
   },
+  "repository": "https://github.com/kinfuy/nova",
   "devDependencies": {
     "tsup": "6.6.3"
   }

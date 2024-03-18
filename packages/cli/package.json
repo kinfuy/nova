@@ -16,6 +16,7 @@
     "build": "tsup && pnpm run link",
     "link": "pnpm link --global"
   },
+  "repository": "https://github.com/kinfuy/nova",
   "dependencies": {
     "nova-sh-core": "workspace:*",
     "cac": "^6.7.14",

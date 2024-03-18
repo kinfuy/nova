@@ -13,6 +13,7 @@
     "element-plus": "^2.2.36",
     "vue-router": "^4.1.6"
   },
+  "repository": "https://github.com/kinfuy/nova",
   "devDependencies": {
     "nova-sh-types": "workspace:*",
     "@vitejs/plugin-vue": "^4.0.0",
