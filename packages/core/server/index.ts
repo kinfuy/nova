@@ -45,7 +45,7 @@ export const createServer = async ({ port, host, rootdir } = defaultServerConfig
 
   const printStart = (port: number) => {
     logger.clearScreen('error');
-    console.log(`\n${green(`CGIT SERVER V1.0.0`)}\n`);
+    console.log(`\n${green(`NOVA SERVER V1.0.0`)}\n`);
     printServerUrls(`http://${host}:${port}`);
   };
 

@@ -4,12 +4,7 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    redirect: '/graph'
-  },
-  {
-    path: '/graph',
-    name: 'graph',
-    component: () => import('../view/index.vue')
+    redirect: '/flow'
   },
   {
     path: '/flow',

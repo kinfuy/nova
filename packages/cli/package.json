@@ -2,7 +2,7 @@
   "name": "nova-sh",
   "version": "0.0.1",
   "private": false,
-  "description": "super cli workbeetch",
+  "description": "Super Shell Workflow",
   "author": "kinfuy",
   "license": "MIT",
   "bin": {

@@ -106,5 +106,17 @@ export const flows: Flow[] = [
         }
       }
     ]
+  },
+  {
+    name: 'git-prune',
+    alias: 'prune',
+    desc: '同步删除远程分支',
+    actions: [
+      {
+        type: 'shell',
+        command: 'git',
+        args: ['remote', 'prune', 'origin']
+      }
+    ]
   }
 ];

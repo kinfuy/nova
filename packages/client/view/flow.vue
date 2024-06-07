@@ -1,24 +1,17 @@
 <template>
-  <div class="nova-flow-create" @click="handleCreate">新建</div>
+  <div class="nova-flow-create">
+    <ElButton type="primary" link @click="handleCreate">新建</ElButton>
+  </div>
   <div class="nova-flow">
-    <el-row :gutter="20">
-      <el-col v-for="item in flows" :key="item.name" :xs="8" :lg="6">
-        <el-card shadow="hover">
-          <div class="crad-header">
-            <div class="card-title">{{ item.name }}</div>
-            <div class="card-alias">
-              <el-tag type="success">{{ item.alias }}</el-tag>
-            </div>
-            <div class="card-operate">
-              <Icon class="icon-btn" :size="24" @click="handleClick(item)">
-                <IconBofang />
-              </Icon>
-            </div>
-          </div>
-          <div class="card-desc">{{ item.desc }}</div>
-        </el-card>
-      </el-col>
-    </el-row>
+    <div v-for="item in flows" :key="item.name" class="box-card">
+      <div class="card-header">
+        <div class="card-alias">
+          {{ item.alias }}
+        </div>
+        <div class="card-title">{{ item.name }}</div>
+      </div>
+      <div class="card-desc">{{ item.desc }}</div>
+    </div>
   </div>
 </template>
 
@@ -27,6 +20,7 @@ import { storeToRefs } from 'pinia';
 import type { CustomPayload, FlowDesc } from '@nova/types';
 import { IconBofang } from '@nova/icons';
 import { nextTick, onMounted } from 'vue';
+import { ElButton } from 'element-plus';
 import Icon from '../components/Icon/index.vue';
 import { useWebSocket } from '../hooks/useWebSocket';
 import { useFlow } from '../store/useFlow';
@@ -73,36 +67,44 @@ onMounted(() => {
 @import '../styles/var.less';
 .nova-flow-create {
   padding: 30px 10px 10px;
-  cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
 }
 .nova-flow {
   padding: 10px;
-  .crad-header {
-    position: relative;
-    .card-operate {
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-    .card-title {
-      font-size: 16px;
-      width: calc(100% - 50px);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+  display: flex;
+  flex-wrap: wrap;
+  .box-card {
+    width: 220px;
+    margin-right: 12px;
+    margin-bottom: 12px;
+    background-color: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    background: linear-gradient(to right, rgb(124, 215, 177), rgb(183, 201, 209));
+    .card-header {
+      .card-alias {
+        display: inline-block;
+        font-size: 28px;
+        border-radius: 4px;
+      }
+      .card-title {
+        display: block;
+        font-size: 12px;
+        flex-grow: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-top: 8px;
+      }
     }
 
-    .card-alias {
-      display: inline-block;
-      font-size: 14px;
-      color: #666;
-      border-radius: 4px;
+    .card-desc {
+      margin-top: 12px;
+      font-size: 12px;
     }
-  }
-
-  .card-desc {
-    font-size: 14px;
-    color: #999;
   }
 }
 </style>

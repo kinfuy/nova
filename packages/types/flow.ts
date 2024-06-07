@@ -2,7 +2,7 @@ export interface FlowContent {
   var: Record<string, any>;
 }
 
-export type ActionType = 'shell' | 'script' | 'params';
+export type ActionType = 'shell' | 'script' | 'params' | 'flow';
 export interface BaseAction {
   before?: (ctx: FlowContent) => void;
   after?: (ctx: FlowContent) => void;
@@ -13,12 +13,18 @@ export interface ShellAction extends BaseAction {
   command: string;
   args: string[] | ((ctx: FlowContent) => string[]);
   catch?: string;
+  originOutput?: boolean;
   transform?: (rst: any) => any;
 }
 
 export interface ScriptAction extends BaseAction {
   type: 'script';
   run: () => void;
+}
+
+export interface FlowAction extends BaseAction {
+  type: 'flow';
+  name: string;
 }
 
 export type params = 'input' | 'select' | 'multiselect' | 'confirm' | 'content';
@@ -59,7 +65,7 @@ export interface ParamsAction extends BaseAction {
   name: string;
 }
 
-export type Action = ShellAction | ScriptAction | ParamsAction;
+export type Action = ShellAction | ScriptAction | ParamsAction | FlowAction;
 
 export interface FlowDesc {
   name: string;

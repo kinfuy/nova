@@ -1,5 +1,5 @@
 import { join } from 'node:path';
-import type { Action, Flow, FlowContent, FlowDesc, ParamsAction, ShellAction } from '@nova/types';
+import type { Action, Flow, FlowAction, FlowContent, FlowDesc, ParamsAction, ShellAction } from '@nova/types';
 import { confirm, intro, isCancel, multiselect, outro, select, spinner, text } from '@clack/prompts';
 import { green } from 'kolorist';
 import { STORE_ROOT } from '../config/path';
@@ -15,6 +15,10 @@ export const isShellAction = (action: Action): action is ShellAction => {
 
 export const isParamsAction = (action: Action): action is ParamsAction => {
   return action.type === 'params';
+};
+
+export const isFlowAction = (action: Action): action is FlowAction => {
+  return action.type === 'flow';
 };
 
 export const getArgs = (args: string[] | ((ctx: FlowContent) => string[]), ctx?: FlowContent) => {
@@ -59,93 +63,97 @@ export class FlowManage {
     await this.checkLoaded();
     const flow = await this.find(alias);
 
-    if (flow) {
-      this.logger.clearScreen('error');
-      const setContent = (type: string, obj: object) => {
-        if (!flow) return;
-        if (type === 'var') {
-          if (flow.content) {
-            Object.assign(flow.content.var, obj);
-          } else {
-            flow.content = {
-              var: obj
-            };
-          }
-        }
-      };
-      if (flow.alias === alias) {
-        intro(`flow: run ${flow.name}`);
-        const startTime = performance.now();
-        for (let i = 0; i < flow.actions.length; i++) {
-          const s = spinner();
-          const action = flow.actions[i];
-          if (isShellAction(action)) {
-            s.start(`action: ${action.command} ${getArgs(action.args, flow.content).join(' ')}`);
-            if (action.before) action.before(flow.content || { var: {} });
-            const rst = await execCommand(action.command, getArgs(action.args, flow.content)).finally(() => {
-              s.stop(`action: ${action.command} ${getArgs(action.args, flow.content).join(' ')}`);
-            });
-            if (action.catch) {
-              const value = action.transform ? action.transform(rst) : rst;
-
-              setContent('var', {
-                [action.catch]: value
-              });
-            }
-            if (action.after) action.after(flow.content || { var: {} });
-          }
-          if (isParamsAction(action)) {
-            if (action.before) action.before(flow.content || { var: {} });
-            let value;
-            if (action.params.type === 'input') {
-              const valueText = await text({
-                message: action.params.message
-              });
-              if (isCancel(valueText)) {
-                process.exit(0);
-              }
-              value = valueText;
-            }
-            if (action.params.type === 'confirm') {
-              const valueConfirm = await confirm({
-                message: action.params.message
-              });
-              if (isCancel(valueConfirm)) {
-                process.exit(0);
-              }
-              value = valueConfirm;
-            }
-            if (action.params.type === 'select') {
-              const valueSelect = await select({
-                message: action.params.message,
-                options: action.params.options
-              });
-              if (isCancel(valueSelect)) {
-                process.exit(0);
-              }
-              value = valueSelect;
-            }
-            if (action.params.type === 'multiselect') {
-              const valueMultiselect = await multiselect({
-                message: action.params.message,
-                options: action.params.options
-              });
-              if (isCancel(valueMultiselect)) {
-                process.exit(0);
-              }
-              value = valueMultiselect;
-            }
-            setContent('var', {
-              [action.name]: value
-            });
-            if (action.after) action.after(flow.content || { var: {} });
-          }
-        }
-        const time = performance.now() - startTime;
-        outro(`flow success ${green(`【${Math.floor(time)}ms】`)}`);
-      }
-    } else {
+    if (!flow) {
       this.logger.warn(`${alias} not a flow name`);
+      return;
+    }
+
+    this.logger.clearScreen('error');
+    const setContent = (type: string, obj: object) => {
+      if (!flow) return;
+      if (type === 'var') {
+        if (flow.content) {
+          Object.assign(flow.content.var, obj);
+        } else {
+          flow.content = { var: obj };
+        }
+      }
+    };
+    if (flow.alias === alias) {
+      intro(`flow: run ${flow.name}`);
+      const startTime = performance.now();
+      for (let i = 0; i < flow.actions.length; i++) {
+        const s = spinner();
+        const action = flow.actions[i];
+        if (isShellAction(action)) {
+          s.start(`action: ${action.command} ${getArgs(action.args, flow.content).join(' ')}`);
+          if (action.before) action.before(flow.content || { var: {} });
+          const rst = await execCommand(action.command, getArgs(action.args, flow.content)).finally(() => {
+            s.stop(`action: ${action.command} ${getArgs(action.args, flow.content).join(' ')}`);
+          });
+          if (action.catch) {
+            const value = action.transform ? action.transform(rst) : rst;
+
+            setContent('var', {
+              [action.catch]: value
+            });
+          }
+          if (action.after) action.after(flow.content || { var: {} });
+        }
+        if (isParamsAction(action)) {
+          if (action.before) action.before(flow.content || { var: {} });
+          let value;
+          if (action.params.type === 'input') {
+            const valueText = await text({
+              message: action.params.message
+            });
+            if (isCancel(valueText)) {
+              process.exit(0);
+            }
+            value = valueText;
+          }
+          if (action.params.type === 'confirm') {
+            const valueConfirm = await confirm({
+              message: action.params.message
+            });
+            if (isCancel(valueConfirm)) {
+              process.exit(0);
+            }
+            value = valueConfirm;
+          }
+          if (action.params.type === 'select') {
+            const valueSelect = await select({
+              message: action.params.message,
+              options: action.params.options
+            });
+            if (isCancel(valueSelect)) {
+              process.exit(0);
+            }
+            value = valueSelect;
+          }
+          if (action.params.type === 'multiselect') {
+            const valueMultiselect = await multiselect({
+              message: action.params.message,
+              options: action.params.options
+            });
+            if (isCancel(valueMultiselect)) {
+              process.exit(0);
+            }
+            value = valueMultiselect;
+          }
+          setContent('var', {
+            [action.name]: value
+          });
+          if (action.after) action.after(flow.content || { var: {} });
+        }
+        if (isFlowAction(action)) {
+          if (action.before) action.before(flow.content || { var: {} });
+          await this.run(action.name);
+          if (action.after) action.after(flow.content || { var: {} });
+        }
+      }
+      const time = performance.now() - startTime;
+      outro(`flow success ${green(`【${Math.floor(time)}ms】`)}`);
     }
   }
 
