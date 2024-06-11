@@ -1,7 +1,7 @@
 {
-  "name": "@nova/icons",
-  "version": "0.0.1",
-  "description": "@nova/icons svg-icon lib",
+  "name": "nova-sh-icons",
+  "version": "0.0.7",
+  "description": "nova-sh-icons svg-icon lib",
   "author": "kinfuy",
   "license": "MIT",
   "main": "dist/lib/index.js",
@@ -19,6 +19,7 @@
   "peerDependencies": {
     "vue": "^3.2.0"
   },
+  "repository": "https://github.com/kinfuy/nova",
   "devDependencies": {
     "@alqmc/build-ts": "^0.0.9",
     "@alqmc/build-utils": "^0.0.5",

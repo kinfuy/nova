@@ -1,11 +1,12 @@
 import { join } from 'node:path';
-import type { Action, Flow, FlowAction, FlowContent, FlowDesc, ParamsAction, ShellAction } from '@nova/types';
+import type { Action, Flow, FlowAction, FlowContent, FlowDesc, ParamsAction, ShellAction } from 'nova-sh-types';
 import { confirm, intro, isCancel, multiselect, outro, select, spinner, text } from '@clack/prompts';
 import { green } from 'kolorist';
 import { STORE_ROOT } from '../config/path';
 import { loadJsonFile, writeJsonFile } from '../fs/load';
 import { createLogger } from '../logger/logger';
 import { execCommand } from '../utils/shell';
+import { checkGitRepo } from '../git/check';
 
 const flowConfigPath = `${join(STORE_ROOT, `flows.json`)}`;
 

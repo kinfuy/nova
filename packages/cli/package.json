@@ -1,6 +1,6 @@
 {
   "name": "nova-sh",
-  "version": "0.0.1",
+  "version": "0.0.7",
   "private": false,
   "description": "Super Shell Workflow",
   "author": "kinfuy",
@@ -16,8 +16,9 @@
     "build": "tsup && pnpm run link",
     "link": "pnpm link --global"
   },
+  "repository": "https://github.com/kinfuy/nova",
   "dependencies": {
-    "@nova/core": "workspace:*",
+    "nova-sh-core": "workspace:*",
     "cac": "^6.7.14",
     "execa": "5.0.1",
     "kolorist": "^1.5.1",
@@ -25,7 +26,7 @@
     "ws": "^8.12.0"
   },
   "devDependencies": {
-    "@nova/types": "workspace:*",
+    "nova-sh-types": "workspace:*",
     "@types/node": "^18.11.9",
     "@types/ws": "^8.5.4",
     "tsup": "6.6.3"

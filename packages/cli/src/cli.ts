@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { cac } from 'cac';
-import { createServer, installFlow, runFlow } from '@nova/core';
+import { createServer, installFlow, runFlow } from 'nova-sh-core';
 import pkg from '../package.json';
 const cli = cac('nova');
 
@@ -37,9 +37,7 @@ cli.command('run [flow]', 'run flow with alias').action(async (flow: string) => 
 });
 
 cli.command('[custom]', 'run flow').action(async (custom: string) => {
-  if (custom === 'flow') {
-    await runFlow(custom);
-  }
+  await runFlow(custom);
 });
 
 cli.help();

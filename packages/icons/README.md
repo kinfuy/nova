@@ -1,1 +1,1 @@
-## @nova/icons
+## nova-sh-icons

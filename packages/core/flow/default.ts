@@ -1,4 +1,4 @@
-import type { Flow } from '@nova/types';
+import type { Flow } from 'nova-sh-types';
 
 export const flows: Flow[] = [
   {

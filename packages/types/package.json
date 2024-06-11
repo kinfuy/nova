@@ -1,10 +1,11 @@
 {
-  "name": "@nova/types",
-  "version": "0.0.1",
+  "name": "nova-sh-types",
+  "version": "0.0.7",
   "types": "dist",
   "scripts": {
     "build": "tsup"
   },
+  "repository": "https://github.com/kinfuy/nova",
   "devDependencies": {
     "tsup": "6.6.3"
   }

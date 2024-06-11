@@ -1,4 +1,4 @@
-import type { Flow } from '@nova/types';
+import type { Flow } from 'nova-sh-types';
 import { createFlow, runFlow } from '../flow';
 import type { FlowManage } from '../flow/flow';
 import type { CommitOrdering } from '../server/middlewares/git';

@@ -3,7 +3,6 @@
 </p>
 
 <h1 align="center"> nova-sh</h1>
-
 <p align="center">
   <a href="https://www.npmjs.org/package/nova-sh">
   <img src="https://img.shields.io/npm/v/nova-sh.svg">
@@ -19,18 +18,21 @@
   <br>
 </p>
 
-[简体中文](./README-zh_CN.md) | English
+简体中文 | [English](./README.md)
 
-nova-sh is a super personal work cli workstation that lets you execute shell workflows and provide contextual communication capabilities. nova-sh redefines cli tools, making your terminal operations more efficient, smarter, and more fun.
+</p> <h1 align="center"> nova-sh</h1> 
+ nova-sh 是一个超级个人工作 cli 工作站，它可以让你执行 shell 工作流，并提供上下文沟通能力。nova-sh 重新定义了 cli 工具，让你的终端操作更高效、更智能、更有趣。
 
-## Features
+## 进度
 
-- Supports a variety of common shell commands, such as ls, cd, git, curl, etc.
-- Supports using natural language to search and execute shell commands
-- Supports creating and sharing custom workflows
-- Supports viewing and copying command output
-- Supports using graphical interface to access common workflows
-- Supports real-time communication with other nova-sh users
+- 支持脚本工作流
+
+## 特性
+
+- 支持多种常用的 shell 命令，如 ls, cd, git, curl 等 - 支持使用自然语言搜索和执行 shell 命令
+- 支持创建和分享自定义的工作流
+- 支持查看和复制命令的输出
+- 支持使用图形界面访问常用的工作流
 
 ## Demo
 
@@ -155,42 +157,34 @@ export const flows: Flow[] = [
 ];
 ```
 
-## Installation
+## 安装
 
-To install nova-sh, you need a Linux or Mac OS system and have node.js and npm installed. Then you can use the following command to install nova-sh:
-
-```bash
-npm install -g nova-sh
-```
-
-Or you can clone this project from GitHub and run it locally:
+要安装 nova-sh，你需要有一个 Linux 或 Mac OS 的系统，并且已经安装了 node.js 和 npm。然后，你可以使用以下命令来安装 nova-sh：
 
 ```bash
-git clone https://github.com/yourname/nova-sh.git
-cd nova-sh
-npm install
-npm start
+pnpm add -g nova-sh
 ```
 
-## Usage
+或者，你也可以从 GitHub 上克隆本项目，并在本地运行：
 
-To start nova-sh, just type `nova` in your terminal. Then you can use the following ways to use nova-sh:
-
-- Enter any shell command and press enter to execute it, such as `ls` or `git status`
-- Enter `/search` followed by a natural language description to search and execute shell commands, such as `/search count all the lines of code recursively under this directory`
-- Enter `/workflow` followed by a workflow name to execute a predefined workflow, such as `/workflow docker`
-- Enter `/help` to see all available commands and options
-
-## Contributing
-
-If you are interested in this project and want to contribute to it, please read our [contribution guide](CONTRIBUTING.md).
-
-## License
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-This project is licensed under the [MIT License](LICENSE).
-
+```bash
+ git clone https://github.com/kinfuy/nova-sh.git
+ cd nova-sh
+ pnpm install
+ pnpm run build
 ```
 
-```
+## 使用
+
+要启动 nova-sh，你只需要在终端中输入 `nova` 或者`nov` 关键字，支持的命令如下
+
+- nov config 打开配置中心
+- nov run 【name】 执行工作流
+
+## 贡献
+
+如果你对本项目感兴趣，欢迎为其做出贡献
+
+## 许可证
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 本项目采用 [MIT 许可证](LICENSE)。
